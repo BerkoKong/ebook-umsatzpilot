@@ -81,7 +81,7 @@ export function Cover() {
           </div>
 
           {/* Level 3: Two Engines */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "8px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "10px", marginBottom: "8px" }}>
             <div style={{
               background: c.card, border: `1px solid ${c.cardBorderHover}`, borderRadius: "12px",
               padding: "14px 16px", textAlign: "center",

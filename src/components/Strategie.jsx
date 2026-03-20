@@ -3,9 +3,11 @@ import { Badge } from "../shared/Badge";
 import { Reveal } from "../shared/Reveal";
 import { c } from "../shared/tokens";
 
+// ─── Daten ───────────────────────────────────────────────────────────────────
+
 const KOMPONENTEN = [
   {
-    num: "01",
+    id: "icp",
     title: "Zielmarkt & ICP-Definition",
     lead: "Wer genau ist der ideale Kunde? Branche, Unternehmensgröße, Entscheider-Rolle, Pain Points, Buying Trigger. Ohne scharfes ICP verpufft alles andere.",
     fragen: [
@@ -18,33 +20,7 @@ const KOMPONENTEN = [
     prompt: "Ich betreibe ein Unternehmen im Bereich [BRANCHE] und biete [DIENSTLEISTUNG/PRODUKT] an. Meine 5 besten Kunden der letzten 12 Monate waren: [KUNDE 1 – Branche, Größe, Ausgangsproblem], [KUNDE 2], [KUNDE 3], [KUNDE 4], [KUNDE 5]. Analysiere die Gemeinsamkeiten dieser Kunden und erstelle ein detailliertes Ideal Customer Profile mit: Branchenmerkmale, Unternehmensgröße, typische Entscheiderrolle, wiederkehrende Pain Points, und Kaufauslöser. Zeige auch, welche Kundensegmente ich bewusst ausschließen sollte und warum.",
   },
   {
-    num: "02",
-    title: "Positionierung & Messaging",
-    lead: "Wie grenzt man sich ab? Was ist die zentrale Transformation, die man verspricht? Welche Sprache spricht die Zielgruppe? Das beeinflusst alles Nachgelagerte – von der Anzeige bis zum Sales Call.",
-    fragen: [
-      "Wenn ein potenzieller Kunde Ihre Website 30 Sekunden sieht – versteht er sofort, was Sie anders machen als Ihre Wettbewerber?",
-      "Sprechen Sie in der Sprache Ihrer Zielgruppe oder in Ihrer eigenen Fachsprache?",
-      "Welches konkrete Ergebnis versprechen Sie – und können Sie das mit Zahlen oder Referenzen belegen?",
-      "Würden drei verschiedene Personen in Ihrem Team die Positionierung identisch beschreiben?",
-    ],
-    ki: "Wettbewerber-Websites und deren Messaging durch ein LLM vergleichen lassen, um Positionierungslücken zu finden – wo sagen alle dasselbe, wo gibt es Raum für Differenzierung?",
-    prompt: "Ich positioniere mich im Bereich [BRANCHE] mit dem Angebot [DIENSTLEISTUNG]. Hier sind die Kernaussagen von 3 Wettbewerbern: [WETTBEWERBER 1 – URL oder Kernaussage], [WETTBEWERBER 2], [WETTBEWERBER 3]. Mein eigener Ansatz unterscheidet sich durch [DIFFERENZIERUNG]. Analysiere, wo sich die Wettbewerber inhaltlich überschneiden, welche Positionierungslücken existieren, und formuliere 3 alternative Positionierungsansätze für mich – jeweils mit Headline, Subline und einem Absatz Erklärung. Die Sprache soll direkt und auf B2B-Entscheider zugeschnitten sein, nicht auf Coaches oder Solopreneure.",
-  },
-  {
-    num: "03",
-    title: "Offer-Architektur",
-    lead: "Wie sind die Angebote strukturiert? Einstiegsangebot vs. Kernangebot vs. Premium. Pricing-Logik (Einmalzahlung, Retainer, Performance). Gibt es einen Foot-in-the-Door-Mechanismus wie ein Audit oder eine kostenlose Analyse?",
-    fragen: [
-      "Gibt es einen klaren, niedrigschwelligen Einstiegspunkt für Neukunden – oder müssen Interessenten sofort eine große Entscheidung treffen?",
-      "Ist Ihre Preisstruktur für den Kunden nachvollziehbar und an seinem Ergebnis orientiert?",
-      "Wie unterscheiden sich Ihre Angebotspakete inhaltlich – oder unterscheiden sie sich nur im Umfang?",
-      "Haben Sie ein System, um Kunden vom Einstiegsangebot systematisch in höherwertige Leistungen zu überführen?",
-    ],
-    ki: "Ein LLM als strategischen Sparringspartner nutzen, um die eigene Angebotsstruktur auf Lücken, Preislogik und Upsell-Pfade zu prüfen.",
-    prompt: "Mein Unternehmen bietet aktuell folgende Leistungen an: [PAKET 1 – Inhalt, Preis, Zielgruppe], [PAKET 2], [PAKET 3]. Meine Zielgruppe sind [ICP-BESCHREIBUNG]. Analysiere diese Angebotsstruktur kritisch: Gibt es einen klaren Einstiegspunkt für Neukunden? Ist die Preislogik nachvollziehbar? Gibt es einen natürlichen Upsell-Pfad? Wo gibt es Kannibalisierung zwischen den Paketen? Schlage eine optimierte Angebotsarchitektur vor mit klarer Abgrenzung, Preisanker-Logik und einem Foot-in-the-Door-Angebot.",
-  },
-  {
-    num: "04",
+    id: "buyer-journey",
     title: "Buyer Journey",
     lead: "Welche Stufen durchläuft ein Lead? Awareness, Interest, Consideration, Decision. Wie lang ist der Sales Cycle? Wo entstehen die meisten Drop-offs? Ist der Funnel eher linear oder gibt es Nurturing-Loops?",
     fragen: [
@@ -57,7 +33,7 @@ const KOMPONENTEN = [
     prompt: "Mein aktueller Vertriebsprozess sieht so aus: [SCHRITT 1: z.B. LinkedIn-Post], [SCHRITT 2: Profilbesuch], [SCHRITT 3: Lead-Magnet-Download], [SCHRITT 4: E-Mail-Sequenz], [SCHRITT 5: Erstgespräch], [SCHRITT 6: Angebot], [SCHRITT 7: Abschluss]. Mein typischer Sales Cycle dauert [X WOCHEN]. Die größten Drop-offs passieren bei [STUFE]. Analysiere diesen Funnel: Wo gibt es unnötige Reibung? Welche Stufen könnten zusammengelegt oder eliminiert werden? Wo fehlt ein Touchpoint? Schlage einen optimierten Funnel vor und erkläre für jede Stufe, welches Ziel sie hat und welche Conversion Rate realistisch wäre.",
   },
   {
-    num: "05",
+    id: "channels",
     title: "Kanal- & Plattformstrategie",
     lead: "Wo wird akquiriert? LinkedIn, Google Ads, YouTube, Cold Email? Die bewusste Entscheidung: Welche 1 bis 2 Kanäle werden als Primärkanäle aufgebaut, welche sind sekundär – und warum?",
     fragen: [
@@ -70,33 +46,7 @@ const KOMPONENTEN = [
     prompt: "Meine Zielgruppe sind [ICP]. Mein monatliches Marketing-Budget liegt bei [BETRAG]. Mein Team besteht aus [ANZAHL PERSONEN mit ROLLEN]. Aktuell nutze ich folgende Kanäle: [KANAL 1 – geschätzter Aufwand und Ergebnis], [KANAL 2], [KANAL 3]. Welche 2 Kanäle sollte ich als Primärkanäle priorisieren und warum? Welche sollte ich reduzieren oder streichen? Erstelle einen konkreten 90-Tage-Plan mit Fokuskanal, Ressourcenverteilung und messbaren Meilensteinen.",
   },
   {
-    num: "06",
-    title: "Inbound vs. Outbound Mix",
-    lead: "Wie ist das Verhältnis? Rein outbound-getrieben, rein inbound oder hybrid? Das bestimmt massiv die Teamstruktur und den Tech-Stack – und ist selten eine bewusste Entscheidung.",
-    fragen: [
-      "Wie hoch ist der Anteil der Neukunden, die aktiv auf Sie zukommen vs. die Sie proaktiv ansprechen?",
-      "Ist dieses Verhältnis eine bewusste Entscheidung oder historisch gewachsen?",
-      "Was würde passieren, wenn Sie morgen jegliches Outbound einstellen – wie schnell trocknet die Pipeline aus?",
-      "Haben Sie für beide Ansätze klare Prozesse und Verantwortlichkeiten definiert?",
-    ],
-    ki: "Die eigene Neukundenherkunft kategorisieren lassen und vom LLM eine Empfehlung für den optimalen Mix ableiten – basierend auf Branche, Ticket-Größe und Teamkapazität.",
-    prompt: "In den letzten 6 Monaten habe ich [X] Neukunden gewonnen. Davon kamen [X%] über Inbound (Content, Empfehlungen, organische Anfragen) und [X%] über Outbound (Cold Email, LinkedIn, Telefon). Mein durchschnittlicher Auftragswert liegt bei [BETRAG], mein Sales Cycle bei [DAUER]. Ich habe [X] Personen im Vertrieb. Empfiehl mir den optimalen Inbound/Outbound-Mix für meine Situation. Erkläre, welcher Ansatz bei meiner Ticket-Größe und Teamgröße effizienter ist, und was sich ändern müsste, damit der andere Ansatz sinnvoll wird.",
-  },
-  {
-    num: "07",
-    title: "Content-Strategie",
-    lead: "Welche Inhalte, auf welchen Plattformen, in welcher Frequenz? Video, Text, Podcast? Und mit welchem Ziel – Reichweite, Trust-Building oder Lead-Generierung? Eng verknüpft mit der Kanalstrategie.",
-    fragen: [
-      "Welches Ziel verfolgen Ihre Inhalte konkret – Reichweite, Vertrauen, Lead-Generierung oder alles gleichzeitig?",
-      "Konsumiert Ihre Zielgruppe die Formate, die Sie produzieren – oder produzieren Sie, was Ihnen liegt?",
-      "Gibt es einen Content-Plan mit fester Frequenz – oder entsteht Content situativ und unregelmäßig?",
-      "Können Sie eine direkte Linie von einem veröffentlichten Inhalt zu einem gewonnenen Kunden nachzeichnen?",
-    ],
-    ki: "Einen kompletten Content-Plan vom LLM erstellen lassen – inklusive Themencluster, Formate und Redaktionsplan, abgestimmt auf die Buyer Journey.",
-    prompt: "Meine Zielgruppe sind [ICP] mit den Hauptproblemen [PROBLEM 1, 2, 3]. Ich möchte mich als Experte für [THEMENFELD] positionieren. Mein bevorzugtes Format ist [Video/Text/Podcast]. Ich kann realistisch [X] Inhalte pro Woche produzieren. Erstelle einen Content-Plan für 4 Wochen mit: Themencluster, die auf meine Buyer Journey abgestimmt sind (Awareness, Consideration, Decision), konkreten Titel-Vorschlägen, dem Ziel jedes Inhalts (Reichweite, Trust, Conversion) und einem CTA pro Inhalt.",
-  },
-  {
-    num: "08",
+    id: "lead-scoring",
     title: "Lead-Qualifizierung & Scoring",
     lead: "Wie wird entschieden, welche Leads Sales-ready sind? MQL vs. SQL Kriterien, Scoring-Modelle, Disqualifikationskriterien. Gerade bei begrenzten Sales-Ressourcen ein kritischer Hebel.",
     fragen: [
@@ -109,7 +59,7 @@ const KOMPONENTEN = [
     prompt: "Ich verkaufe [DIENSTLEISTUNG] an [ZIELGRUPPE] mit einem durchschnittlichen Auftragswert von [BETRAG]. Mein Vertriebsteam hat Kapazität für [X] Erstgespräche pro Woche. Aktuell kommen [X] Leads pro Woche rein. Erstelle ein Lead-Scoring-Modell mit: 5 bis 7 Kriterien, die einen qualifizierten Lead ausmachen (demografisch und verhaltensbasiert), einer Punkteskala mit klaren Schwellenwerten für MQL und SQL, Disqualifikationskriterien die sofort aussortieren, und einem einfachen Entscheidungsbaum, den auch ein Mitarbeiter ohne Vertriebserfahrung anwenden kann.",
   },
   {
-    num: "09",
+    id: "sales-process",
     title: "Sales-Prozess & Closing-Architektur",
     lead: "Wie sieht der Verkaufsprozess konkret aus? Discovery Call, Demo, Proposal, Close. Wer führt welchen Schritt durch? Gibt es Einwandbehandlung, Follow-up-Sequenzen, Vertragsvorlagen?",
     fragen: [
@@ -123,33 +73,7 @@ const KOMPONENTEN = [
     prompt: "Mein Verkaufsprozess besteht aktuell aus folgenden Schritten: [SCHRITT 1 mit DAUER und ZIEL], [SCHRITT 2], [SCHRITT 3]. Die häufigsten Einwände meiner Interessenten sind: [EINWAND 1], [EINWAND 2], [EINWAND 3]. Meine Abschlussquote vom Erstgespräch zum Abschluss liegt bei [X%]. Analysiere den Prozess und schlage Optimierungen vor. Erstelle zusätzlich: einen strukturierten Gesprächsleitfaden für das Erstgespräch (Discovery), Formulierungen für die 3 häufigsten Einwände, und eine Follow-up-Sequenz mit 5 Touchpoints für Interessenten, die nicht sofort entscheiden.",
   },
   {
-    num: "10",
-    title: "Teamstruktur & Rollen",
-    lead: "Wer macht was? SDR/BDR für Outreach, AE für Closing, Marketing für Content & Ads? Oder ist alles bei einer Person? Die Rollenverteilung bestimmt, wie skalierbar das System ist.",
-    fragen: [
-      "Ist klar definiert, wer für Leadgenerierung, Qualifizierung und Abschluss verantwortlich ist – oder macht eine Person alles?",
-      "Könnte Ihr Vertrieb morgen ohne den Gründer oder eine Schlüsselperson weiterlaufen?",
-      "Sind die Rollen nach Kompetenz verteilt – oder nach Verfügbarkeit?",
-      "Welche Rolle fehlt Ihnen aktuell am meisten, um den nächsten Wachstumsschritt zu machen?",
-    ],
-    ki: "Die aktuelle Teamaufstellung gegen das Umsatzziel abgleichen und vom LLM eine Soll-Struktur mit klaren Verantwortlichkeiten ableiten lassen.",
-    prompt: "Mein Unternehmen macht aktuell [UMSATZ] pro Jahr mit [ANZAHL] Mitarbeitern in Vertrieb und Marketing. Die Rollen sind aktuell so verteilt: [PERSON 1 – Aufgaben], [PERSON 2 – Aufgaben]. Mein Umsatzziel für die nächsten 12 Monate ist [ZIEL]. Analysiere, ob meine aktuelle Teamstruktur dieses Ziel realistisch unterstützt. Welche Rolle fehlt am dringendsten? Was sollte der Gründer abgeben? Erstelle eine Soll-Teamstruktur mit klaren Verantwortlichkeiten, KPIs pro Rolle und einer Empfehlung, in welcher Reihenfolge ich aufbauen sollte.",
-  },
-  {
-    num: "11",
-    title: "Tech-Stack & Automatisierung",
-    lead: "CRM, E-Mail-Automatisierung, Booking-Tool, Pipeline-Management, Enrichment-Tools, KI-Agenten. Welche Tools unterstützen welchen Prozessschritt – und wo wird automatisiert vs. manuell gearbeitet?",
-    fragen: [
-      "Welche manuellen, wiederkehrenden Aufgaben in Vertrieb und Marketing kosten Sie heute die meiste Zeit?",
-      "Arbeiten Ihre Tools als integriertes System – oder sind es Insellösungen, zwischen denen Informationen verloren gehen?",
-      "Könnten Sie heute auf Knopfdruck sagen, wo jeder aktive Lead in der Pipeline steht?",
-      "Welche Prozesse könnten Sie automatisieren, ohne dass die Qualität der Kundeninteraktion leidet?",
-    ],
-    ki: "Den aktuellen Tool-Stack auflisten und vom LLM auf Redundanzen, fehlende Integrationen und Automatisierungspotenziale prüfen lassen.",
-    prompt: "Mein aktueller Tech-Stack für Vertrieb und Marketing besteht aus: [TOOL 1 – Zweck], [TOOL 2 – Zweck], [TOOL 3 – Zweck]. Die größten manuellen Zeitfresser sind: [AUFGABE 1], [AUFGABE 2], [AUFGABE 3]. Analysiere meinen Stack: Wo gibt es Redundanzen? Wo fehlen Integrationen, sodass Daten manuell übertragen werden? Welche 3 Prozesse haben das höchste Automatisierungspotenzial? Schlage einen optimierten Stack vor und beschreibe für jede Automatisierung den konkreten Workflow (Trigger, Aktion, Ergebnis).",
-  },
-  {
-    num: "12",
+    id: "kpis",
     title: "KPIs & Steuerungslogik",
     lead: "Welche Metriken werden auf welcher Ebene getrackt? Aktivitätsmetriken, Pipeline-Metriken, Revenue-Metriken. Ohne klare KPIs gibt es keine Steuerung – nur Beschäftigung.",
     fragen: [
@@ -166,8 +90,87 @@ const KOMPONENTEN = [
       "Investments", "Preis", "LTV-Auswirkungen",
     ],
   },
+  // ─── Sekundäre Komponenten (07–13) ─────────────────────────────────────────
   {
-    num: "13",
+    id: "positioning",
+    title: "Positionierung & Messaging",
+    lead: "Wie grenzt man sich ab? Was ist die zentrale Transformation, die man verspricht? Welche Sprache spricht die Zielgruppe? Das beeinflusst alles Nachgelagerte – von der Anzeige bis zum Sales Call.",
+    fragen: [
+      "Wenn ein potenzieller Kunde Ihre Website 30 Sekunden sieht – versteht er sofort, was Sie anders machen als Ihre Wettbewerber?",
+      "Sprechen Sie in der Sprache Ihrer Zielgruppe oder in Ihrer eigenen Fachsprache?",
+      "Welches konkrete Ergebnis versprechen Sie – und können Sie das mit Zahlen oder Referenzen belegen?",
+      "Würden drei verschiedene Personen in Ihrem Team die Positionierung identisch beschreiben?",
+    ],
+    ki: "Wettbewerber-Websites und deren Messaging durch ein LLM vergleichen lassen, um Positionierungslücken zu finden – wo sagen alle dasselbe, wo gibt es Raum für Differenzierung?",
+    prompt: "Ich positioniere mich im Bereich [BRANCHE] mit dem Angebot [DIENSTLEISTUNG]. Hier sind die Kernaussagen von 3 Wettbewerbern: [WETTBEWERBER 1 – URL oder Kernaussage], [WETTBEWERBER 2], [WETTBEWERBER 3]. Mein eigener Ansatz unterscheidet sich durch [DIFFERENZIERUNG]. Analysiere, wo sich die Wettbewerber inhaltlich überschneiden, welche Positionierungslücken existieren, und formuliere 3 alternative Positionierungsansätze für mich – jeweils mit Headline, Subline und einem Absatz Erklärung. Die Sprache soll direkt und auf B2B-Entscheider zugeschnitten sein, nicht auf Coaches oder Solopreneure.",
+  },
+  {
+    id: "offer",
+    title: "Offer-Architektur",
+    lead: "Wie sind die Angebote strukturiert? Einstiegsangebot vs. Kernangebot vs. Premium. Pricing-Logik (Einmalzahlung, Retainer, Performance). Gibt es einen Foot-in-the-Door-Mechanismus wie ein Audit oder eine kostenlose Analyse?",
+    fragen: [
+      "Gibt es einen klaren, niedrigschwelligen Einstiegspunkt für Neukunden – oder müssen Interessenten sofort eine große Entscheidung treffen?",
+      "Ist Ihre Preisstruktur für den Kunden nachvollziehbar und an seinem Ergebnis orientiert?",
+      "Wie unterscheiden sich Ihre Angebotspakete inhaltlich – oder unterscheiden sie sich nur im Umfang?",
+      "Haben Sie ein System, um Kunden vom Einstiegsangebot systematisch in höherwertige Leistungen zu überführen?",
+    ],
+    ki: "Ein LLM als strategischen Sparringspartner nutzen, um die eigene Angebotsstruktur auf Lücken, Preislogik und Upsell-Pfade zu prüfen.",
+    prompt: "Mein Unternehmen bietet aktuell folgende Leistungen an: [PAKET 1 – Inhalt, Preis, Zielgruppe], [PAKET 2], [PAKET 3]. Meine Zielgruppe sind [ICP-BESCHREIBUNG]. Analysiere diese Angebotsstruktur kritisch: Gibt es einen klaren Einstiegspunkt für Neukunden? Ist die Preislogik nachvollziehbar? Gibt es einen natürlichen Upsell-Pfad? Wo gibt es Kannibalisierung zwischen den Paketen? Schlage eine optimierte Angebotsarchitektur vor mit klarer Abgrenzung, Preisanker-Logik und einem Foot-in-the-Door-Angebot.",
+  },
+  {
+    id: "inbound-outbound",
+    title: "Inbound vs. Outbound Mix",
+    lead: "Wie ist das Verhältnis? Rein outbound-getrieben, rein inbound oder hybrid? Das bestimmt massiv die Teamstruktur und den Tech-Stack – und ist selten eine bewusste Entscheidung.",
+    fragen: [
+      "Wie hoch ist der Anteil der Neukunden, die aktiv auf Sie zukommen vs. die Sie proaktiv ansprechen?",
+      "Ist dieses Verhältnis eine bewusste Entscheidung oder historisch gewachsen?",
+      "Was würde passieren, wenn Sie morgen jegliches Outbound einstellen – wie schnell trocknet die Pipeline aus?",
+      "Haben Sie für beide Ansätze klare Prozesse und Verantwortlichkeiten definiert?",
+    ],
+    ki: "Die eigene Neukundenherkunft kategorisieren lassen und vom LLM eine Empfehlung für den optimalen Mix ableiten – basierend auf Branche, Ticket-Größe und Teamkapazität.",
+    prompt: "In den letzten 6 Monaten habe ich [X] Neukunden gewonnen. Davon kamen [X%] über Inbound (Content, Empfehlungen, organische Anfragen) und [X%] über Outbound (Cold Email, LinkedIn, Telefon). Mein durchschnittlicher Auftragswert liegt bei [BETRAG], mein Sales Cycle bei [DAUER]. Ich habe [X] Personen im Vertrieb. Empfiehl mir den optimalen Inbound/Outbound-Mix für meine Situation. Erkläre, welcher Ansatz bei meiner Ticket-Größe und Teamgröße effizienter ist, und was sich ändern müsste, damit der andere Ansatz sinnvoll wird.",
+  },
+  {
+    id: "content",
+    title: "Content-Strategie",
+    lead: "Welche Inhalte, auf welchen Plattformen, in welcher Frequenz? Video, Text, Podcast? Und mit welchem Ziel – Reichweite, Trust-Building oder Lead-Generierung? Eng verknüpft mit der Kanalstrategie.",
+    fragen: [
+      "Welches Ziel verfolgen Ihre Inhalte konkret – Reichweite, Vertrauen, Lead-Generierung oder alles gleichzeitig?",
+      "Konsumiert Ihre Zielgruppe die Formate, die Sie produzieren – oder produzieren Sie, was Ihnen liegt?",
+      "Gibt es einen Content-Plan mit fester Frequenz – oder entsteht Content situativ und unregelmäßig?",
+      "Können Sie eine direkte Linie von einem veröffentlichten Inhalt zu einem gewonnenen Kunden nachzeichnen?",
+    ],
+    ki: "Einen kompletten Content-Plan vom LLM erstellen lassen – inklusive Themencluster, Formate und Redaktionsplan, abgestimmt auf die Buyer Journey.",
+    prompt: "Meine Zielgruppe sind [ICP] mit den Hauptproblemen [PROBLEM 1, 2, 3]. Ich möchte mich als Experte für [THEMENFELD] positionieren. Mein bevorzugtes Format ist [Video/Text/Podcast]. Ich kann realistisch [X] Inhalte pro Woche produzieren. Erstelle einen Content-Plan für 4 Wochen mit: Themencluster, die auf meine Buyer Journey abgestimmt sind (Awareness, Consideration, Decision), konkreten Titel-Vorschlägen, dem Ziel jedes Inhalts (Reichweite, Trust, Conversion) und einem CTA pro Inhalt.",
+  },
+  {
+    id: "team",
+    title: "Teamstruktur & Rollen",
+    lead: "Wer macht was? SDR/BDR für Outreach, AE für Closing, Marketing für Content & Ads? Oder ist alles bei einer Person? Die Rollenverteilung bestimmt, wie skalierbar das System ist.",
+    fragen: [
+      "Ist klar definiert, wer für Leadgenerierung, Qualifizierung und Abschluss verantwortlich ist – oder macht eine Person alles?",
+      "Könnte Ihr Vertrieb morgen ohne den Gründer oder eine Schlüsselperson weiterlaufen?",
+      "Sind die Rollen nach Kompetenz verteilt – oder nach Verfügbarkeit?",
+      "Welche Rolle fehlt Ihnen aktuell am meisten, um den nächsten Wachstumsschritt zu machen?",
+    ],
+    ki: "Die aktuelle Teamaufstellung gegen das Umsatzziel abgleichen und vom LLM eine Soll-Struktur mit klaren Verantwortlichkeiten ableiten lassen.",
+    prompt: "Mein Unternehmen macht aktuell [UMSATZ] pro Jahr mit [ANZAHL] Mitarbeitern in Vertrieb und Marketing. Die Rollen sind aktuell so verteilt: [PERSON 1 – Aufgaben], [PERSON 2 – Aufgaben]. Mein Umsatzziel für die nächsten 12 Monate ist [ZIEL]. Analysiere, ob meine aktuelle Teamstruktur dieses Ziel realistisch unterstützt. Welche Rolle fehlt am dringendsten? Was sollte der Gründer abgeben? Erstelle eine Soll-Teamstruktur mit klaren Verantwortlichkeiten, KPIs pro Rolle und einer Empfehlung, in welcher Reihenfolge ich aufbauen sollte.",
+  },
+  {
+    id: "techstack",
+    title: "Tech-Stack & Automatisierung",
+    lead: "CRM, E-Mail-Automatisierung, Booking-Tool, Pipeline-Management, Enrichment-Tools, KI-Agenten. Welche Tools unterstützen welchen Prozessschritt – und wo wird automatisiert vs. manuell gearbeitet?",
+    fragen: [
+      "Welche manuellen, wiederkehrenden Aufgaben in Vertrieb und Marketing kosten Sie heute die meiste Zeit?",
+      "Arbeiten Ihre Tools als integriertes System – oder sind es Insellösungen, zwischen denen Informationen verloren gehen?",
+      "Könnten Sie heute auf Knopfdruck sagen, wo jeder aktive Lead in der Pipeline steht?",
+      "Welche Prozesse könnten Sie automatisieren, ohne dass die Qualität der Kundeninteraktion leidet?",
+    ],
+    ki: "Den aktuellen Tool-Stack auflisten und vom LLM auf Redundanzen, fehlende Integrationen und Automatisierungspotenziale prüfen lassen.",
+    prompt: "Mein aktueller Tech-Stack für Vertrieb und Marketing besteht aus: [TOOL 1 – Zweck], [TOOL 2 – Zweck], [TOOL 3 – Zweck]. Die größten manuellen Zeitfresser sind: [AUFGABE 1], [AUFGABE 2], [AUFGABE 3]. Analysiere meinen Stack: Wo gibt es Redundanzen? Wo fehlen Integrationen, sodass Daten manuell übertragen werden? Welche 3 Prozesse haben das höchste Automatisierungspotenzial? Schlage einen optimierten Stack vor und beschreibe für jede Automatisierung den konkreten Workflow (Trigger, Aktion, Ergebnis).",
+  },
+  {
+    id: "budget",
     title: "Budget- & Ressourcenallokation",
     lead: "Wie verteilt sich das Budget auf Kanäle, Tools, Team? Was ist der erwartete ROI pro Kanal? Wo wird zuerst investiert, wo später?",
     fragen: [
@@ -181,34 +184,238 @@ const KOMPONENTEN = [
   },
 ];
 
-function StrategieKarte({ num, title, lead, fragen, ki, prompt, kpiList, delay = 0 }) {
+const TOP_6_IDS = ["icp", "buyer-journey", "channels", "lead-scoring", "sales-process", "kpis"];
+
+const KATEGORIEN = [
+  {
+    id: "grundlagen",
+    label: "Strategische Grundlagen",
+    ids: ["icp", "positioning", "offer", "buyer-journey"],
+  },
+  {
+    id: "akquise",
+    label: "Akquise & Kanäle",
+    ids: ["channels", "inbound-outbound", "content", "lead-scoring"],
+  },
+  {
+    id: "steuerung",
+    label: "Vertrieb & Steuerung",
+    ids: ["sales-process", "team", "techstack", "kpis", "budget"],
+  },
+];
+
+const BY_ID = Object.fromEntries(KOMPONENTEN.map(k => [k.id, k]));
+
+const TOP_6 = TOP_6_IDS.map((id, i) => ({ ...BY_ID[id], displayNum: String(i + 1).padStart(2, "0") }));
+const SECONDARY_IDS = ["positioning", "offer", "inbound-outbound", "content", "team", "techstack", "budget"];
+const SECONDARY = SECONDARY_IDS.map((id, i) => ({ ...BY_ID[id], displayNum: String(i + 7).padStart(2, "0") }));
+
+// ─── Hilfsfunktionen ─────────────────────────────────────────────────────────
+
+function getBarColor(score) {
+  if (score <= 4) return c.red;
+  if (score <= 8) return c.amber;
+  return c.green;
+}
+
+function getResultText(score, checked) {
+  if (score <= 3) {
+    return "Hier liegt enormes Potenzial. Du operierst ohne strategisches Fundament – jede Automatisierung würde auf Sand gebaut. Das Analysegespräch zeigt dir, wo du anfangen solltest.";
+  }
+  if (score <= 6) {
+    const missingCoreNames = TOP_6_IDS
+      .filter(id => !checked.has(id))
+      .map(id => BY_ID[id].title);
+    if (missingCoreNames.length === 0) {
+      return "Ein Anfang ist gemacht, aber es fehlen noch wichtige Bausteine. Lass uns gemeinsam die Lücken schließen.";
+    }
+    const listed = missingCoreNames.length === 1
+      ? missingCoreNames[0]
+      : missingCoreNames.slice(0, -1).join(", ") + " und " + missingCoreNames[missingCoreNames.length - 1];
+    return `Ein Anfang ist gemacht, aber ohne ${listed} bremst du dein eigenes Wachstum. Lass uns gemeinsam die Lücken schließen.`;
+  }
+  if (score <= 9) {
+    return "Gute Basis. Jetzt geht es darum, die Lücken zu schließen und das Zusammenspiel zu optimieren. Im Analysegespräch identifizieren wir, welche Komponenten den größten Hebel haben.";
+  }
+  if (score <= 12) {
+    return "Starke strategische Aufstellung. Die Frage ist jetzt: Sind diese Komponenten auch systematisiert und automatisierbar? Genau das analysieren wir im Gespräch.";
+  }
+  return "Alles definiert – beeindruckend. Aber: Sind diese Strategien auch dokumentiert, messbar und in Systeme übersetzt? Oder leben sie nur in deinem Kopf? Das finden wir im Analysegespräch heraus.";
+}
+
+function getCtaText(score) {
+  if (score <= 6) return "Strategie-Lücken im Analysegespräch schließen \u2192";
+  if (score <= 12) return "Strategie im Analysegespräch optimieren \u2192";
+  return "Strategie im Analysegespräch auf Automatisierbarkeit prüfen \u2192";
+}
+
+// ─── Self-Assessment ─────────────────────────────────────────────────────────
+
+function SelfAssessment({ checked, onToggle }) {
+  const score = checked.size;
+  const pct = Math.round((score / 13) * 100);
+  const barColor = getBarColor(score);
+
+  return (
+    <div style={{ background: c.card, borderRadius: "16px", border: `1px solid ${c.cardBorder}`, padding: "clamp(20px,3vw,28px)", marginBottom: "48px" }}>
+      <p style={{ fontSize: "15px", fontWeight: 700, color: c.white, margin: "0 0 4px" }}>
+        Wo stehst du? Klicke an, was bei dir bereits definiert ist.
+      </p>
+      <p style={{ fontSize: "13px", color: c.textMuted, margin: "0 0 24px" }}>
+        13 Komponenten – klicke alles an, was du bereits systematisch aufgebaut hast.
+      </p>
+
+      {/* Kategorien */}
+      {KATEGORIEN.map(kat => (
+        <div key={kat.id} style={{ marginBottom: "16px", borderRadius: "10px", border: `1px solid ${c.cardBorder}`, overflow: "hidden" }}>
+          <div style={{ padding: "10px 16px", background: "rgba(255,255,255,0.02)", borderBottom: `1px solid ${c.cardBorder}` }}>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.1em", textTransform: "uppercase" }}>{kat.label}</span>
+          </div>
+          <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+            {kat.ids.map(id => {
+              const isChecked = checked.has(id);
+              return (
+                <div
+                  key={id}
+                  onClick={() => onToggle(id)}
+                  style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", userSelect: "none" }}
+                >
+                  {/* Custom checkbox */}
+                  <div style={{
+                    width: "16px", height: "16px", borderRadius: "4px", flexShrink: 0,
+                    border: `1px solid ${isChecked ? c.green : "#333"}`,
+                    background: isChecked ? c.green : "transparent",
+                    transition: "background 0.15s, border-color 0.15s",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    {isChecked && (
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                        <path d="M1 3.5L3.8 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </div>
+                  <span style={{ fontSize: "14px", color: isChecked ? c.textMuted : c.textSecondary, transition: "color 0.15s", textDecoration: isChecked ? "line-through" : "none" }}>
+                    {BY_ID[id].title}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+
+      {/* Ergebnis */}
+      <div style={{ background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: `1px solid ${c.cardBorder}`, padding: "20px" }}>
+        <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 12px" }}>Ergebnis</p>
+
+        {/* Progress bar */}
+        <div style={{ marginBottom: "8px" }}>
+          <div style={{ height: "8px", borderRadius: "100px", background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+            <div style={{
+              height: "100%",
+              width: `${pct}%`,
+              borderRadius: "100px",
+              background: barColor,
+              transition: "width 0.4s ease, background 0.4s ease",
+            }} />
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+            <span style={{ fontSize: "13px", fontWeight: 700, color: barColor, transition: "color 0.4s" }}>{score} / 13</span>
+            <span style={{ fontSize: "13px", color: c.textMuted }}>{pct}%</span>
+          </div>
+        </div>
+
+        {/* Dynamic text */}
+        <p style={{ fontSize: "14px", color: c.textSecondary, lineHeight: 1.65, margin: "16px 0 20px" }}>
+          {getResultText(score, checked)}
+        </p>
+
+        {/* CTA */}
+        <a
+          href="https://umsatzpilot.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-block",
+            padding: "12px 20px",
+            borderRadius: "10px",
+            background: "rgba(255,255,255,0.06)",
+            border: `1px solid ${c.cardBorderHover}`,
+            color: c.white,
+            fontSize: "14px",
+            fontWeight: 600,
+            textDecoration: "none",
+            transition: "background 0.2s, border-color 0.2s",
+            cursor: "pointer",
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; }}
+          onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = c.cardBorderHover; }}
+        >
+          {getCtaText(score)}
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ─── Strategie-Karte ─────────────────────────────────────────────────────────
+
+function StrategieKarte({ displayNum, title, lead, fragen, ki, prompt, kpiList, isCore, isMissing, delay = 0 }) {
   const [open, setOpen] = useState(false);
   const [h, setH] = useState(false);
+
+  const borderColor = isMissing && isCore
+    ? "rgba(245,158,11,0.35)"
+    : (h || open ? "rgba(245,158,11,0.2)" : c.cardBorder);
+
+  const leftAccent = isMissing && isCore ? "3px solid rgba(245,158,11,0.5)" : "none";
+
   return (
     <Reveal delay={delay}>
       <div
         onMouseEnter={() => setH(true)}
         onMouseLeave={() => setH(false)}
-        style={{ background: c.card, borderRadius: "16px", border: `1px solid ${h || open ? "rgba(245,158,11,0.2)" : c.cardBorder}`, transition: "border-color 0.4s ease", marginBottom: "12px", position: "relative", overflow: "hidden" }}
+        style={{
+          background: c.card,
+          borderRadius: "16px",
+          border: `1px solid ${borderColor}`,
+          borderLeft: leftAccent,
+          transition: "border-color 0.3s ease",
+          marginBottom: "12px",
+          position: "relative",
+          overflow: "hidden",
+        }}
       >
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: `linear-gradient(90deg, ${c.amber}44, transparent)`, opacity: h || open ? 1 : 0.3, transition: "opacity 0.4s ease" }} />
 
-        {/* Clickable header */}
+        {/* Header */}
         <div
           onClick={() => setOpen(!open)}
           style={{ padding: "clamp(18px,3vw,24px) clamp(16px,3vw,24px)", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: "16px" }}
         >
           <div style={{ width: "36px", height: "36px", borderRadius: "10px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)" }}>
-            <span style={{ fontSize: "13px", fontWeight: 800, color: c.amber }}>{num}</span>
+            <span style={{ fontSize: "13px", fontWeight: 800, color: c.amber }}>{displayNum}</span>
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h3 style={{ fontSize: "clamp(15px,2vw,17px)", fontWeight: 700, color: c.white, margin: "0 0 6px", lineHeight: 1.3 }}>{title}</h3>
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", marginBottom: "6px" }}>
+              <h3 style={{ fontSize: "clamp(15px,2vw,17px)", fontWeight: 700, color: c.white, margin: 0, lineHeight: 1.3 }}>{title}</h3>
+              {isCore && (
+                <span style={{ flexShrink: 0, fontSize: "11px", fontWeight: 700, color: c.green, letterSpacing: "0.06em", border: "1px solid rgba(34,197,94,0.25)", borderRadius: "100px", padding: "3px 8px", background: "rgba(34,197,94,0.06)", whiteSpace: "nowrap" }}>
+                  &#9733; KERN
+                </span>
+              )}
+            </div>
+            {isMissing && isCore && (
+              <span style={{ display: "inline-block", fontSize: "11px", color: c.amber, marginBottom: "6px" }}>
+                &#9888; fehlt dir noch
+              </span>
+            )}
             <p style={{ fontSize: "13.5px", color: c.textSecondary, lineHeight: 1.6, margin: 0 }}>{lead}</p>
           </div>
           <div style={{ fontSize: "18px", color: c.textMuted, transition: "transform 0.3s ease", transform: open ? "rotate(180deg)" : "rotate(0deg)", flexShrink: 0, marginTop: "4px" }}>{"\u25BE"}</div>
         </div>
 
-        {/* Expandable section */}
+        {/* Expandable content */}
         <div style={{ maxHeight: open ? "2400px" : "0px", overflow: "hidden", transition: "max-height 0.6s cubic-bezier(.25,.46,.45,.94)", opacity: open ? 1 : 0 }}>
           <div style={{ padding: "20px clamp(16px,3vw,24px) clamp(20px,3vw,26px)", borderTop: `1px solid ${c.cardBorder}` }}>
 
@@ -223,7 +430,7 @@ function StrategieKarte({ num, title, lead, fragen, ki, prompt, kpiList, delay =
               ))}
             </div>
 
-            {/* KPI list (optional, only for KPIs card) */}
+            {/* KPI list (optional) */}
             {kpiList && (
               <div style={{ background: "rgba(255,255,255,0.02)", borderRadius: "10px", padding: "14px 16px", border: `1px solid ${c.cardBorder}`, marginBottom: "16px" }}>
                 <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 12px" }}>Zu trackende Kennzahlen</p>
@@ -244,7 +451,7 @@ function StrategieKarte({ num, title, lead, fragen, ki, prompt, kpiList, delay =
             {/* Prompt */}
             <div style={{ background: "#070707", borderRadius: "10px", padding: "16px 18px", border: `1px solid ${c.cardBorder}` }}>
               <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 10px" }}>Prompt</p>
-              <p style={{ fontSize: "13px", color: "#777", lineHeight: 1.75, margin: 0, fontFamily: "'Menlo', 'Monaco', 'Courier New', monospace", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{prompt}</p>
+              <p style={{ fontSize: "13px", color: "#777", lineHeight: 1.75, margin: 0, fontFamily: "'JetBrains Mono', 'Courier New', monospace", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{prompt}</p>
             </div>
 
           </div>
@@ -254,7 +461,47 @@ function StrategieKarte({ num, title, lead, fragen, ki, prompt, kpiList, delay =
   );
 }
 
+// ─── Expander ────────────────────────────────────────────────────────────────
+
+function Expander({ label, title, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderRadius: "12px", border: `1px solid ${c.cardBorder}`, marginTop: "8px", overflow: "hidden", background: c.card }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{ width: "100%", background: "transparent", border: "none", cursor: "pointer", padding: "18px 20px", textAlign: "left", display: "flex", flexDirection: "column", gap: "2px" }}
+      >
+        {label && <span style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.1em", textTransform: "uppercase" }}>{label}</span>}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: "15px", fontWeight: 700, color: open ? c.white : "#999", transition: "color 0.2s" }}>{title}</span>
+          <span style={{ color: "#555", fontSize: "11px", flexShrink: 0, marginLeft: "12px", transition: "transform 0.3s", display: "inline-block", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}>&#9654;</span>
+        </div>
+      </button>
+      <div style={{ maxHeight: open ? "20000px" : "0", overflow: "hidden", transition: "max-height 0.5s ease" }}>
+        <div style={{ padding: "20px 20px 24px", borderTop: `1px solid ${c.cardBorder}` }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Hauptexport ─────────────────────────────────────────────────────────────
+
 export function Strategie() {
+  const [checked, setChecked] = useState(new Set());
+
+  function toggle(id) {
+    setChecked(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const missingSecondary = SECONDARY.filter(k => !checked.has(k.id));
+
   return (
     <>
       <Reveal><Badge>Baustein 1</Badge></Reveal>
@@ -274,9 +521,63 @@ export function Strategie() {
         </p>
       </Reveal>
 
-      {KOMPONENTEN.map((k, i) => (
-        <StrategieKarte key={k.num} {...k} delay={i < 4 ? i * 0.06 : 0} />
+      {/* TEIL 1: Self-Assessment */}
+      <Reveal delay={0.22}>
+        <SelfAssessment checked={checked} onToggle={toggle} />
+      </Reveal>
+
+      {/* TEIL 2: Top-6 Kernkomponenten */}
+      <Reveal>
+        <p style={{ fontSize: "12px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
+          Die 6 Kernkomponenten
+        </p>
+        <p style={{ fontSize: "clamp(18px,2.5vw,22px)", fontWeight: 700, color: c.white, margin: "0 0 6px" }}>
+          Diese Bausteine entscheiden über Erfolg oder Stagnation.
+        </p>
+        <p style={{ fontSize: "14px", color: c.textSecondary, margin: "0 0 24px" }}>
+          Klicke auf eine Komponente, um Diagnose-Fragen und den passenden KI-Prompt zu sehen.
+        </p>
+      </Reveal>
+
+      {TOP_6.map((k, i) => (
+        <StrategieKarte
+          key={k.id}
+          displayNum={k.displayNum}
+          title={k.title}
+          lead={k.lead}
+          fragen={k.fragen}
+          ki={k.ki}
+          prompt={k.prompt}
+          kpiList={k.kpiList}
+          isCore={true}
+          isMissing={!checked.has(k.id)}
+          delay={i < 3 ? i * 0.06 : 0}
+        />
       ))}
+
+      {/* TEIL 3: Weitere 7 Komponenten */}
+      <Reveal>
+        <Expander
+          label="Weitere Komponenten"
+          title={`7 weitere Strategie-Bausteine${missingSecondary.length > 0 ? ` (${missingSecondary.length} fehlen dir noch)` : ""}`}
+        >
+          {SECONDARY.map((k, i) => (
+            <StrategieKarte
+              key={k.id}
+              displayNum={k.displayNum}
+              title={k.title}
+              lead={k.lead}
+              fragen={k.fragen}
+              ki={k.ki}
+              prompt={k.prompt}
+              kpiList={k.kpiList}
+              isCore={false}
+              isMissing={!checked.has(k.id)}
+              delay={0}
+            />
+          ))}
+        </Expander>
+      </Reveal>
     </>
   );
 }

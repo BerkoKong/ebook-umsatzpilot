@@ -61,7 +61,7 @@ function ArchitekturDiagramm() {
   };
 
   const labelStyle = {
-    fontSize: "10px",
+    fontSize: "11px",
     color: c.textMuted,
     whiteSpace: "nowrap",
     letterSpacing: "0.02em",
@@ -145,7 +145,7 @@ function ArchitekturDiagramm() {
         ].map(({ color, label }) => (
           <div key={label} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <div style={{ width: "16px", height: "1px", background: color }} />
-            <span style={{ fontSize: "10.5px", color: c.textMuted }}>{label}</span>
+            <span style={{ fontSize: "11px", color: c.textMuted }}>{label}</span>
           </div>
         ))}
       </div>

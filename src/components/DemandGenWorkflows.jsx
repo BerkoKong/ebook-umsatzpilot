@@ -887,6 +887,68 @@ function SubHeading({ children }) {
   );
 }
 
+/* ─── Expander ─────────────────────────────────────────────── */
+function Expander({ label, title, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', marginTop: 20, overflow: 'hidden', background: '#0a0a0a' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{ width: '100%', background: 'transparent', border: 'none', cursor: 'pointer', padding: '14px 20px', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 2 }}
+      >
+        {label && <span style={{ fontSize: 10, fontWeight: 600, color: '#666', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</span>}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: open ? '#fff' : '#999', transition: 'color 0.2s' }}>{title}</span>
+          <span style={{ color: '#555', fontSize: 11, flexShrink: 0, marginLeft: 12, transition: 'transform 0.3s', display: 'inline-block', transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>&#9654;</span>
+        </div>
+      </button>
+      <div style={{ maxHeight: open ? '10000px' : '0', overflow: 'hidden', transition: 'max-height 0.4s ease' }}>
+        <div style={{ padding: '20px 20px 24px', borderTop: '1px solid #1a1a1a' }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Workflow Map ──────────────────────────────────────────── */
+const DG_MAP_CARDS = [
+  { id: 'dg-wf-01', num: 'WF-01', short: 'Prospecting',  metric: '15 Min → 30 Sek'  },
+  { id: 'dg-wf-02', num: 'WF-02', short: 'Ads erstellen', metric: '90 Min → 4 Min'  },
+  { id: 'dg-wf-03', num: 'WF-03', short: 'Ads Tracking',  metric: '45 Min → 0 Min'  },
+  { id: 'dg-wf-04', num: 'WF-04', short: 'LinkedIn',      metric: '20/Tag → 200/Wo' },
+  { id: 'dg-wf-05', num: 'WF-05', short: 'Content',       metric: 'Tage → Stunden'  },
+  { id: 'dg-wf-06', num: 'WF-06', short: 'Shortform',     metric: '4 Std → Min'     },
+  { id: 'dg-wf-07', num: 'WF-07', short: 'Leadmagnet',    metric: '3 Wo → 4 Std'   },
+];
+
+function WorkflowMap({ cards, summary }) {
+  return (
+    <div style={{ background: '#0a0a0a', borderRadius: 12, border: '1px solid #1a1a1a', padding: 'clamp(18px,3vw,28px)', marginBottom: 48 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 148px), 1fr))', gap: 10, marginBottom: 16 }}>
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            onClick={() => document.getElementById(card.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            style={{ background: '#0d0f12', border: '1px solid #1a1a1a', borderRadius: 8, padding: 12, cursor: 'pointer', transition: 'border-color 0.2s, transform 0.15s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#22c55e'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#1a1a1a'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#22c55e', fontWeight: 700, letterSpacing: '0.06em', marginBottom: 6 }}>{card.num}</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#e5e5e5', marginBottom: 8, lineHeight: 1.3 }}>{card.short}</div>
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#22c55e', lineHeight: 1.3 }}>{card.metric}</div>
+          </div>
+        ))}
+      </div>
+      {summary && (
+        <div style={{ borderTop: '1px solid #141414', paddingTop: 12, fontSize: 11, color: '#333', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.03em' }}>
+          {summary}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── Main Export ────────────────────────────────────────── */
 export function DemandGenWorkflows() {
   useEffect(() => {
@@ -922,681 +984,657 @@ export function DemandGenWorkflows() {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <p style={{ fontSize: 15, color: c.textSecondary, margin: '0 0 56px', lineHeight: 1.65, maxWidth: 580 }}>
+        <p style={{ fontSize: 15, color: c.textSecondary, margin: '0 0 32px', lineHeight: 1.65, maxWidth: 580 }}>
           Jeder Workflow bildet einen konkreten Prozess der Demand Gen Engine ab, der vollautomatisch oder mit minimalem menschlichem Eingriff ablauft. Hier sehen Sie jeden Schritt, jedes Tool und die messbaren Auswirkungen.
         </p>
+      </Reveal>
+
+      <Reveal delay={0.15}>
+        <WorkflowMap
+          cards={DG_MAP_CARDS}
+          summary="7 Workflows · ~30h/Woche Zeitersparnis · 5–10x mehr Output"
+        />
       </Reveal>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 01
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal delay={0.12}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-            WF-01
-          </span>
-          <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-            Scraping & Erstellung einer Prospecting-Liste
-          </h3>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Multi-Source Scraping, E-Mail-Findung via API, KI-Webanalyse und personalisierte IceBreaker-Generierung. Der gesamte Rechercheprozess wird vom Vertrieb entkoppelt.
-        </p>
-      </Reveal>
-
-      {/* Canvas */}
-      <Reveal delay={0.16}>
-        <WorkflowCanvas nodes={WF01_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      {/* Auswirkungen */}
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF01_IMPACT} />
-          <KerneffektBox text={WF01_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      {/* Anforderungen */}
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF01_TOOLS} />
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF01_TOKENS} color='#3b82f6' />
-            </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF01_VORAUSSETZUNGEN} color='#f59e0b' />
-            </div>
+      <div id="dg-wf-01" style={{ scrollMarginTop: 80 }}>
+        <Reveal delay={0.12}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+              WF-01
+            </span>
+            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+              Scraping & Erstellung einer Prospecting-Liste
+            </h3>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      {/* Wie es funktioniert */}
-      <Reveal delay={0.22}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest einen Mitarbeiter, der den ganzen Tag nichts anderes macht als Leads finden, prüfen, anreichern und aufbereiten — ohne Pause, ohne Tippfehler, hunderte Leads pro Tag.
+        <Reveal delay={0.14}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Multi-Source Scraping, E-Mail-Findung via API, KI-Webanalyse und personalisierte IceBreaker-Generierung. Der gesamte Rechercheprozess wird vom Vertrieb entkoppelt.
           </p>
-          <SimpleExplanation steps={WF01_SCHRITTE} />
-        </div>
-      </Reveal>
+        </Reveal>
 
-      {/* Nutzen */}
-      <Reveal delay={0.24}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF01_NUTZEN} />
-        </div>
-      </Reveal>
+        <Reveal delay={0.16}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF01_IMPACT} />
+            <KerneffektBox text={WF01_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.18}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF01_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF01_NODES} />
+            <NodeLegend />
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF01_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF01_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF01_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest einen Mitarbeiter, der den ganzen Tag nichts anderes macht als Leads finden, prüfen, anreichern und aufbereiten — ohne Pause, ohne Tippfehler, hunderte Leads pro Tag.
+              </p>
+              <SimpleExplanation steps={WF01_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 02
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-02
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              Ads erstellen, schalten & verwalten
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Vom Kampagnen-Briefing über KI-generierte Texte und Creatives bis zur automatischen Veröffentlichung im Meta Werbekonto — inklusive Fehler-Monitoring via Slack.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF02_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF02_IMPACT} />
-          <KerneffektBox text={WF02_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.16}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF02_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF02_TOKENS} color='#3b82f6' />
-            </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF02_VORAUSSETZUNGEN} color='#f59e0b' />
+      <div id="dg-wf-02" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-02
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                Ads erstellen, schalten & verwalten
+              </h3>
             </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest eine komplette Werbeagentur als Mitarbeiter, die auf Knopfdruck arbeitet.
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Vom Kampagnen-Briefing über KI-generierte Texte und Creatives bis zur automatischen Veröffentlichung im Meta Werbekonto — inklusive Fehler-Monitoring via Slack.
           </p>
-          <SimpleExplanation steps={WF02_SCHRITTE} />
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF02_NUTZEN} />
-        </div>
-      </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF02_IMPACT} />
+            <KerneffektBox text={WF02_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF02_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF02_NODES} />
+            <NodeLegend />
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF02_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF02_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF02_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest eine komplette Werbeagentur als Mitarbeiter, die auf Knopfdruck arbeitet.
+              </p>
+              <SimpleExplanation steps={WF02_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 03
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-03
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              Ads Tracking, Auswertung & Management
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Automatischer Daten-Pull aus Meta Ads auf Campaign-, Ad-Set- und Ad-Level, regelbasierte KPI-Auswertung, KI-Analyse mit Handlungsempfehlungen, automatische Slide-Reports und Echtzeit-Warnungen via Slack.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF03_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF03_IMPACT} />
-          <KerneffektBox text={WF03_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.16}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF03_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF03_TOKENS} color='#3b82f6' />
-            </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF03_VORAUSSETZUNGEN} color='#f59e0b' />
+      <div id="dg-wf-03" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-03
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                Ads Tracking, Auswertung & Management
+              </h3>
             </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest einen Analysten, der 24 Stunden am Tag deine Werbekampagnen überwacht und dir jeden Morgen einen fertigen Report auf den Tisch legt — plus sofortige Warnungen, wenn etwas aus dem Ruder läuft.
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Automatischer Daten-Pull aus Meta Ads auf Campaign-, Ad-Set- und Ad-Level, regelbasierte KPI-Auswertung, KI-Analyse mit Handlungsempfehlungen, automatische Slide-Reports und Echtzeit-Warnungen via Slack.
           </p>
-          <SimpleExplanation steps={WF03_SCHRITTE} />
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF03_NUTZEN} />
-        </div>
-      </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF03_IMPACT} />
+            <KerneffektBox text={WF03_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF03_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF03_NODES} />
+            <NodeLegend />
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF03_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF03_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF03_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest einen Analysten, der 24 Stunden am Tag deine Werbekampagnen überwacht und dir jeden Morgen einen fertigen Report auf den Tisch legt — plus sofortige Warnungen, wenn etwas aus dem Ruder läuft.
+              </p>
+              <SimpleExplanation steps={WF03_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 04
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-04
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              LinkedIn-Outreach
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Automatisierte Vernetzungsanfragen (200/Woche), personalisierte Pitch-Sequenzen, KI-gestützte Qualifizierung und Follow-up-Logik mit Blacklist-Management und Terminvereinbarung — innerhalb aller LinkedIn-Limits.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF04_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF04_IMPACT} />
-          <KerneffektBox text={WF04_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      {/* LinkedIn Limits + Arbeitslisten */}
-      <Reveal delay={0.16}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 24, marginTop: 40 }}>
-
-          {/* LinkedIn Limits */}
-          <div>
-            <SubHeading>LinkedIn-Limits (Sicherer Bereich)</SubHeading>
-            <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 1.4fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 14px' }}>
-                {['Aktion', 'Limit', 'Anmerkung'].map((h, i) => (
-                  <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
-                ))}
-              </div>
-              {WF04_LIMITS.map((row, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 1.4fr', padding: '9px 14px', borderBottom: i < WF04_LIMITS.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'start' }}>
-                  <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 500 }}>{row.aktion}</span>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#22c55e', fontWeight: 600 }}>{row.limit}</span>
-                  <span style={{ fontSize: 11, color: '#3e3e3e' }}>{row.anmerkung}</span>
-                </div>
-              ))}
+      <div id="dg-wf-04" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-04
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                LinkedIn-Outreach
+              </h3>
             </div>
           </div>
+        </Reveal>
 
-          {/* Arbeitslisten */}
-          <div>
-            <SubHeading>Arbeitslisten</SubHeading>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {WF04_LISTEN.map((item, i) => {
-                const colors = { Pipeline: '#3b82f6', 'In Progress': '#f59e0b', Connected: '#22c55e', Qualified: '#a78bfa', Blacklist: '#ef4444' };
-                const col = colors[item.liste] || '#888';
-                return (
-                  <div key={i} style={{ display: 'flex', gap: 0, borderRadius: 6, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
-                    <div style={{ width: 3, background: col, flexShrink: 0 }} />
-                    <div style={{ padding: '9px 12px', flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: col, fontWeight: 700 }}>{item.liste}</span>
-                      </div>
-                      <div style={{ fontSize: 11, color: '#3a3a3a', lineHeight: 1.4 }}>{item.status}</div>
-                      <div style={{ fontSize: 11, color: '#2a2a2a', marginTop: 2 }}>{item.aktion}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Automatisierte Vernetzungsanfragen (200/Woche), personalisierte Pitch-Sequenzen, KI-gestützte Qualifizierung und Follow-up-Logik mit Blacklist-Management und Terminvereinbarung — innerhalb aller LinkedIn-Limits.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF04_IMPACT} />
+            <KerneffektBox text={WF04_KERNEFFEKT} />
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      {/* Outreach-Sequenz */}
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Outreach-Sequenz</SubHeading>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            {WF04_SEQUENZ.map((step, i) => (
-              <div key={i} style={{ display: 'flex', gap: 0, alignItems: 'stretch' }}>
-                {/* Timeline line */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 48, flexShrink: 0 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 8, color: '#22c55e', fontWeight: 700, textAlign: 'center', lineHeight: 1.1 }}>{step.tag.replace('Tag ', '')}</span>
-                  </div>
-                  {i < WF04_SEQUENZ.length - 1 && (
-                    <div style={{ width: 1, flex: 1, background: '#1a1a1a', margin: '4px 0' }} />
-                  )}
-                </div>
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF04_NUTZEN} />
+          </div>
+        </Reveal>
 
-                {/* Content */}
-                <div style={{ flex: 1, paddingBottom: 24, paddingLeft: 12 }}>
-                  <div style={{ fontSize: 11, color: '#888', fontFamily: "'JetBrains Mono', monospace", marginBottom: 2 }}>{step.tag}</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: c.textPrimary, marginBottom: 4 }}>{step.label}</div>
-                  <div style={{ fontSize: 11.5, color: '#3a3a3a', marginBottom: 10 }}>{step.note}</div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {step.branches.map((b, j) => (
-                      <div key={j} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 4, background: b.negative ? 'rgba(239,68,68,0.06)' : 'rgba(34,197,94,0.06)', border: `1px solid ${b.negative ? 'rgba(239,68,68,0.2)' : 'rgba(34,197,94,0.2)'}` }}>
-                        <span style={{ fontSize: 10, color: b.negative ? '#555' : '#444', fontFamily: "'JetBrains Mono', monospace" }}>{b.cond}:</span>
-                        <span style={{ fontSize: 10.5, color: b.negative ? '#ef4444' : '#22c55e', fontWeight: 600 }}>{b.action}</span>
-                      </div>
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF04_NODES} />
+            <NodeLegend />
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 24, marginTop: 32 }}>
+              <div>
+                <SubHeading>LinkedIn-Limits (Sicherer Bereich)</SubHeading>
+                <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 1.4fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 14px' }}>
+                    {['Aktion', 'Limit', 'Anmerkung'].map((h, i) => (
+                      <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
                     ))}
                   </div>
+                  {WF04_LIMITS.map((row, i) => (
+                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 1.4fr', padding: '9px 14px', borderBottom: i < WF04_LIMITS.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'start' }}>
+                      <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 500 }}>{row.aktion}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#22c55e', fontWeight: 600 }}>{row.limit}</span>
+                      <span style={{ fontSize: 11, color: '#3e3e3e' }}>{row.anmerkung}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF04_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF04_TOKENS} color='#3b82f6' />
+              <div>
+                <SubHeading>Arbeitslisten</SubHeading>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {WF04_LISTEN.map((item, i) => {
+                    const colors = { Pipeline: '#3b82f6', 'In Progress': '#f59e0b', Connected: '#22c55e', Qualified: '#a78bfa', Blacklist: '#ef4444' };
+                    const col = colors[item.liste] || '#888';
+                    return (
+                      <div key={i} style={{ display: 'flex', gap: 0, borderRadius: 6, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
+                        <div style={{ width: 3, background: col, flexShrink: 0 }} />
+                        <div style={{ padding: '9px 12px', flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+                            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: col, fontWeight: 700 }}>{item.liste}</span>
+                          </div>
+                          <div style={{ fontSize: 11, color: '#3a3a3a', lineHeight: 1.4 }}>{item.status}</div>
+                          <div style={{ fontSize: 11, color: '#2a2a2a', marginTop: 2 }}>{item.aktion}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF04_VORAUSSETZUNGEN} color='#f59e0b' />
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Outreach-Sequenz</SubHeading>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {WF04_SEQUENZ.map((step, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 0, alignItems: 'stretch' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 48, flexShrink: 0 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 8, color: '#22c55e', fontWeight: 700, textAlign: 'center', lineHeight: 1.1 }}>{step.tag.replace('Tag ', '')}</span>
+                      </div>
+                      {i < WF04_SEQUENZ.length - 1 && (
+                        <div style={{ width: 1, flex: 1, background: '#1a1a1a', margin: '4px 0' }} />
+                      )}
+                    </div>
+                    <div style={{ flex: 1, paddingBottom: 24, paddingLeft: 12 }}>
+                      <div style={{ fontSize: 11, color: '#888', fontFamily: "'JetBrains Mono', monospace", marginBottom: 2 }}>{step.tag}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: c.textPrimary, marginBottom: 4 }}>{step.label}</div>
+                      <div style={{ fontSize: 11.5, color: '#3a3a3a', marginBottom: 10 }}>{step.note}</div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                        {step.branches.map((b, j) => (
+                          <div key={j} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 4, background: b.negative ? 'rgba(239,68,68,0.06)' : 'rgba(34,197,94,0.06)', border: `1px solid ${b.negative ? 'rgba(239,68,68,0.2)' : 'rgba(34,197,94,0.2)'}` }}>
+                            <span style={{ fontSize: 10, color: b.negative ? '#555' : '#444', fontFamily: "'JetBrains Mono', monospace" }}>{b.cond}:</span>
+                            <span style={{ fontSize: 10.5, color: b.negative ? '#ef4444' : '#22c55e', fontWeight: 600 }}>{b.action}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </Reveal>
 
-      <Reveal delay={0.22}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest einen SDR, der jeden Tag pünktlich und systematisch dein LinkedIn-Netzwerk aufbaut — ohne einen einzigen Lead zu vergessen.
-          </p>
-          <SimpleExplanation steps={WF04_SCHRITTE} />
-        </div>
-      </Reveal>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF04_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF04_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF04_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
 
-      <Reveal delay={0.24}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF04_NUTZEN} />
-        </div>
-      </Reveal>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest einen SDR, der jeden Tag pünktlich und systematisch dein LinkedIn-Netzwerk aufbaut — ohne einen einzigen Lead zu vergessen.
+              </p>
+              <SimpleExplanation steps={WF04_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 05
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-05
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              Content-Erstellung & Distribution
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Trend-Erkennung und Notion-Briefings werden zu plattformspezifischem Content mit KI-generierten Bildern — nach Human-in-the-Loop-Freigabe automatisch auf LinkedIn, Blog, Newsletter und Instagram veröffentlicht.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF05_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF05_IMPACT} />
-          <KerneffektBox text={WF05_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      {/* Publishing-Kalender */}
-      <Reveal delay={0.16}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Publishing-Kalender (Beispiel)</SubHeading>
-          <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1.6fr 0.9fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 16px' }}>
-              {['Tag', 'Kanal', 'Format', 'Uhrzeit'].map((h, i) => (
-                <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
-              ))}
-            </div>
-            {WF05_KALENDER.map((row, i) => {
-              const kanalColors = { LinkedIn: '#0a66c2', Blog: '#f97316', Newsletter: '#22c55e', Instagram: '#e1306c', 'LinkedIn + Instagram': '#a78bfa' };
-              const col = kanalColors[row.kanal] || '#888';
-              return (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1.6fr 0.9fr', padding: '10px 16px', borderBottom: i < WF05_KALENDER.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 600 }}>{row.tag}</span>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5, color: col, fontWeight: 700 }}>{row.kanal}</span>
-                  <span style={{ fontSize: 12, color: '#3e3e3e' }}>{row.format}</span>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5, color: '#555' }}>{row.uhrzeit}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF05_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF05_TOKENS} color='#3b82f6' />
-            </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF05_VORAUSSETZUNGEN} color='#f59e0b' />
+      <div id="dg-wf-05" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-05
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                Content-Erstellung & Distribution
+              </h3>
             </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest einen Content-Manager, einen Texter, einen Grafiker und einen Social-Media-Manager — alle in einer Person, die rund um die Uhr arbeitet.
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Trend-Erkennung und Notion-Briefings werden zu plattformspezifischem Content mit KI-generierten Bildern — nach Human-in-the-Loop-Freigabe automatisch auf LinkedIn, Blog, Newsletter und Instagram veröffentlicht.
           </p>
-          <SimpleExplanation steps={WF05_SCHRITTE} />
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.22}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF05_NUTZEN} />
-        </div>
-      </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF05_IMPACT} />
+            <KerneffektBox text={WF05_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF05_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF05_NODES} />
+            <NodeLegend />
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Publishing-Kalender (Beispiel)</SubHeading>
+              <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1.6fr 0.9fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 16px' }}>
+                  {['Tag', 'Kanal', 'Format', 'Uhrzeit'].map((h, i) => (
+                    <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                  ))}
+                </div>
+                {WF05_KALENDER.map((row, i) => {
+                  const kanalColors = { LinkedIn: '#0a66c2', Blog: '#f97316', Newsletter: '#22c55e', Instagram: '#e1306c', 'LinkedIn + Instagram': '#a78bfa' };
+                  const col = kanalColors[row.kanal] || '#888';
+                  return (
+                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1.6fr 0.9fr', padding: '10px 16px', borderBottom: i < WF05_KALENDER.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'center' }}>
+                      <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 600 }}>{row.tag}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5, color: col, fontWeight: 700 }}>{row.kanal}</span>
+                      <span style={{ fontSize: 12, color: '#3e3e3e' }}>{row.format}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5, color: '#555' }}>{row.uhrzeit}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF05_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF05_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF05_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest einen Content-Manager, einen Texter, einen Grafiker und einen Social-Media-Manager — alle in einer Person, die rund um die Uhr arbeitet.
+              </p>
+              <SimpleExplanation steps={WF05_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 06
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-06
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              Shortform-Generator
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Aus Longform-Videos (YouTube, Podcasts, Webinare) werden automatisch die besten Clips extrahiert, geschnitten, mit Captions versehen und nach Human-Freigabe auf Instagram, TikTok und LinkedIn veröffentlicht.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF06_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF06_IMPACT} />
-          <KerneffektBox text={WF06_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      {/* Content-Multiplikation */}
-      <Reveal delay={0.16}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Content-Multiplikation (Beispielrechnung)</SubHeading>
-          <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden', marginBottom: 14 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 0.9fr 1.2fr 1fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 16px' }}>
-              {['Input', 'Output', 'Plattformen', 'Gesamt'].map((h, i) => (
-                <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
-              ))}
+      <div id="dg-wf-06" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-06
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                Shortform-Generator
+              </h3>
             </div>
-            {WF06_MULTIPLIKATION.map((row, i) => (
-              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.6fr 0.9fr 1.2fr 1fr', padding: '10px 16px', borderBottom: i < WF06_MULTIPLIKATION.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'center' }}>
-                <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 500 }}>{row.input}</span>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#a78bfa', fontWeight: 700 }}>{row.output}</span>
-                <span style={{ fontSize: 12, color: '#3e3e3e' }}>{row.plattformen}</span>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#22c55e', fontWeight: 700 }}>{row.gesamt}</span>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Aus Longform-Videos (YouTube, Podcasts, Webinare) werden automatisch die besten Clips extrahiert, geschnitten, mit Captions versehen und nach Human-Freigabe auf Instagram, TikTok und LinkedIn veröffentlicht.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF06_IMPACT} />
+            <KerneffektBox text={WF06_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF06_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF06_NODES} />
+            <NodeLegend />
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Content-Multiplikation (Beispielrechnung)</SubHeading>
+              <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden', marginBottom: 14 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 0.9fr 1.2fr 1fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 16px' }}>
+                  {['Input', 'Output', 'Plattformen', 'Gesamt'].map((h, i) => (
+                    <span key={i} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                  ))}
+                </div>
+                {WF06_MULTIPLIKATION.map((row, i) => (
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.6fr 0.9fr 1.2fr 1fr', padding: '10px 16px', borderBottom: i < WF06_MULTIPLIKATION.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'center' }}>
+                    <span style={{ fontSize: 12, color: c.textPrimary, fontWeight: 500 }}>{row.input}</span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#a78bfa', fontWeight: 700 }}>{row.output}</span>
+                    <span style={{ fontSize: 12, color: '#3e3e3e' }}>{row.plattformen}</span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#22c55e', fontWeight: 700 }}>{row.gesamt}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <p style={{ fontSize: 12, color: '#2e2e2e', margin: 0, lineHeight: 1.5, fontStyle: 'italic' }}>
-            Bei einer Publishing-Frequenz von 2 Clips/Tag/Plattform reicht ein einziges 45-Minuten-Video für fast eine Woche Content auf allen drei Kanälen.
-          </p>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF06_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF06_TOKENS} color='#3b82f6' />
+              <p style={{ fontSize: 12, color: '#2e2e2e', margin: 0, lineHeight: 1.5, fontStyle: 'italic' }}>
+                Bei einer Publishing-Frequenz von 2 Clips/Tag/Plattform reicht ein einziges 45-Minuten-Video für fast eine Woche Content auf allen drei Kanälen.
+              </p>
             </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF06_VORAUSSETZUNGEN} color='#f59e0b' />
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF06_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF06_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF06_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Reveal>
 
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du hättest ein ganzes Video-Produktionsteam — Editor, Untertitler, Social-Media-Manager — das aus jedem langen Video automatisch die besten Momente herausholt.
-          </p>
-          <SimpleExplanation steps={WF06_SCHRITTE} />
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.22}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF06_NUTZEN} />
-        </div>
-      </Reveal>
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du hättest ein ganzes Video-Produktionsteam — Editor, Untertitler, Social-Media-Manager — das aus jedem langen Video automatisch die besten Momente herausholt.
+              </p>
+              <SimpleExplanation steps={WF06_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ══════════════════════════════════════════════════════
           WORKFLOW 07
       ══════════════════════════════════════════════════════ */}
 
-      <Reveal>
-        <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
-              WF-07
-            </span>
-            <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
-              Leadmagnet-Creator
-            </h3>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.06}>
-        <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
-          Von Voice Memo oder Notion-Stichpunkten zum fertigen Lead Magnet — mit KI-Texterstellung, automatischem Design, Human-Freigabe und integriertem Engagement-Tracking für Lead Scoring.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <WorkflowCanvas nodes={WF07_NODES} />
-        <NodeLegend />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Auswirkungen des Workflows</SubHeading>
-          <ImpactTable rows={WF07_IMPACT} />
-          <KerneffektBox text={WF07_KERNEFFEKT} />
-        </div>
-      </Reveal>
-
-      {/* Use Cases + Lead Scoring */}
-      <Reveal delay={0.16}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 24, marginTop: 40 }}>
-
-          {/* Use Cases */}
-          <div>
-            <SubHeading>Use Cases</SubHeading>
-            <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1.8fr 0.8fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 14px' }}>
-                {['Format', 'Einsatz', 'Umfang'].map((h) => (
-                  <span key={h} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
-                ))}
-              </div>
-              {WF07_USECASES.map((row, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.3fr 1.8fr 0.8fr', padding: '9px 14px', borderBottom: i < WF07_USECASES.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'start' }}>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#a78bfa', fontWeight: 600 }}>{row.format}</span>
-                  <span style={{ fontSize: 11.5, color: '#3e3e3e', lineHeight: 1.4 }}>{row.einsatz}</span>
-                  <span style={{ fontSize: 11, color: '#555' }}>{row.seiten}</span>
-                </div>
-              ))}
+      <div id="dg-wf-07" style={{ scrollMarginTop: 80 }}>
+        <Reveal>
+          <div style={{ margin: '64px 0 0', borderTop: '1px solid #111', paddingTop: 64 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#363636', padding: '3px 8px', borderRadius: 4, border: '1px solid #1c1c1c', letterSpacing: '0.06em' }}>
+                WF-07
+              </span>
+              <h3 style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', color: c.textPrimary, fontWeight: 700, margin: 0 }}>
+                Leadmagnet-Creator
+              </h3>
             </div>
           </div>
+        </Reveal>
 
-          {/* Lead Scoring */}
-          <div>
-            <SubHeading>Tracking → Lead Scoring</SubHeading>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {WF07_SCORING.map((row, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', background: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: 6 }}>
-                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 800, color: row.color, minWidth: 36, textAlign: 'right', flexShrink: 0 }}>{row.score}</div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 11.5, color: c.textPrimary, fontWeight: 500, marginBottom: 2 }}>{row.signal}</div>
-                    <div style={{ fontSize: 10.5, color: '#2e2e2e', lineHeight: 1.3 }}>{row.aktion}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.18}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
-          <ToolsTable tools={WF07_TOOLS} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
-              <BulletList items={WF07_TOKENS} color='#3b82f6' />
-            </div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
-              <BulletList items={WF07_VORAUSSETZUNGEN} color='#f59e0b' />
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <div style={{ marginTop: 40 }}>
-          <SubHeading>Wie es funktioniert</SubHeading>
-          <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
-            Stell dir vor, du könntest deine Expertise einfach aussprechen oder als Stichpunkte aufschreiben — und am Ende des Tages hättest du ein professionelles Playbook in der Hand. Fertig designed, mit deinem Branding, bereit zum Verteilen.
+        <Reveal delay={0.06}>
+          <p style={{ fontSize: 13.5, color: '#4a4a4a', margin: '0 0 20px', lineHeight: 1.6 }}>
+            Von Voice Memo oder Notion-Stichpunkten zum fertigen Lead Magnet — mit KI-Texterstellung, automatischem Design, Human-Freigabe und integriertem Engagement-Tracking für Lead Scoring.
           </p>
-          <SimpleExplanation steps={WF07_SCHRITTE} />
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal delay={0.22}>
-        <div style={{ marginTop: 32 }}>
-          <SubHeading>Nutzen nach Zielgruppe</SubHeading>
-          <NutzenList items={WF07_NUTZEN} />
-        </div>
-      </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: 20 }}>
+            <SubHeading>Auswirkungen des Workflows</SubHeading>
+            <ImpactTable rows={WF07_IMPACT} />
+            <KerneffektBox text={WF07_KERNEFFEKT} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div style={{ marginTop: 32 }}>
+            <SubHeading>Nutzen nach Zielgruppe</SubHeading>
+            <NutzenList items={WF07_NUTZEN} />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <Expander label="Technische Details" title="Workflow-Schritte & Automatisierungs-Flow">
+            <SubHeading>Workflow-Diagramm</SubHeading>
+            <WorkflowCanvas nodes={WF07_NODES} />
+            <NodeLegend />
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 24, marginTop: 32 }}>
+              <div>
+                <SubHeading>Use Cases</SubHeading>
+                <div style={{ borderRadius: 8, border: '1px solid #1a1a1a', overflow: 'hidden' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1.8fr 0.8fr', background: '#0a0a0a', borderBottom: '1px solid #1a1a1a', padding: '8px 14px' }}>
+                    {['Format', 'Einsatz', 'Umfang'].map((h) => (
+                      <span key={h} style={{ fontSize: 10, color: '#3a3a3a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                    ))}
+                  </div>
+                  {WF07_USECASES.map((row, i) => (
+                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.3fr 1.8fr 0.8fr', padding: '9px 14px', borderBottom: i < WF07_USECASES.length - 1 ? '1px solid #0f0f0f' : 'none', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.008)', alignItems: 'start' }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#a78bfa', fontWeight: 600 }}>{row.format}</span>
+                      <span style={{ fontSize: 11.5, color: '#3e3e3e', lineHeight: 1.4 }}>{row.einsatz}</span>
+                      <span style={{ fontSize: 11, color: '#555' }}>{row.seiten}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <SubHeading>Tracking → Lead Scoring</SubHeading>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {WF07_SCORING.map((row, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px', background: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: 6 }}>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 800, color: row.color, minWidth: 36, textAlign: 'right', flexShrink: 0 }}>{row.score}</div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 11.5, color: c.textPrimary, fontWeight: 500, marginBottom: 2 }}>{row.signal}</div>
+                        <div style={{ fontSize: 10.5, color: '#2e2e2e', lineHeight: 1.3 }}>{row.aktion}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Anforderungen — Systeme & Tools</SubHeading>
+              <ToolsTable tools={WF07_TOOLS} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 24, marginTop: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API-Tokens & Zugänge</div>
+                  <BulletList items={WF07_TOKENS} color='#3b82f6' />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: '#3a3a3a', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Voraussetzungen</div>
+                  <BulletList items={WF07_VORAUSSETZUNGEN} color='#f59e0b' />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 32 }}>
+              <SubHeading>Wie es funktioniert</SubHeading>
+              <p style={{ fontSize: 13, color: '#3a3a3a', margin: '0 0 20px', lineHeight: 1.6 }}>
+                Stell dir vor, du könntest deine Expertise einfach aussprechen oder als Stichpunkte aufschreiben — und am Ende des Tages hättest du ein professionelles Playbook in der Hand. Fertig designed, mit deinem Branding, bereit zum Verteilen.
+              </p>
+              <SimpleExplanation steps={WF07_SCHRITTE} />
+            </div>
+          </Expander>
+        </Reveal>
+      </div>
 
       {/* ── Ende Demand Gen Engine Workflows ── */}
     </>

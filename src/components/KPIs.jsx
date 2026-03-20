@@ -249,7 +249,7 @@ function MVDDashboard() {
       {MVD_CARDS.map(({ num, kpi, sub, value }, i) => (
         <div key={i} style={{ background: c.card, border: `1px solid ${c.cardBorder}`, borderRadius: "14px", padding: "18px 14px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: `linear-gradient(90deg, transparent, ${c.green}40, transparent)` }} />
-          <span style={{ fontSize: "10px", fontWeight: 800, color: c.textMuted, letterSpacing: "0.12em" }}>{num}</span>
+          <span style={{ fontSize: "11px", fontWeight: 800, color: c.textMuted, letterSpacing: "0.12em" }}>{num}</span>
           <p style={{ fontSize: "clamp(24px,3.5vw,32px)", fontWeight: 800, color: c.white, margin: "8px 0 4px", lineHeight: 1 }}>{value}</p>
           <p style={{ fontSize: "11px", fontWeight: 600, color: c.green, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 6px" }}>{sub}</p>
           <p style={{ fontSize: "11.5px", color: c.textMuted, lineHeight: 1.45, margin: 0 }}>{kpi}</p>

@@ -240,15 +240,13 @@ export function ConversionCTA() {
             Wenn du die Überholspur willst, dann lass uns reden. Buche dein kostenloses Analysegespräch und lass uns gemeinsam herausfinden, wo dein größter Hebel liegt.
           </p>
 
-          <a href="https://kalender.umsatzpilot.com/umsatzpilot" target="_blank" rel="noopener noreferrer" style={{
-            display: "inline-flex", alignItems: "center", gap: "10px",
-            padding: "16px 36px", borderRadius: "12px",
-            background: c.white, color: c.bg,
-            fontSize: "16px", fontWeight: 700, textDecoration: "none",
-            boxShadow: "0 4px 20px rgba(255,255,255,0.1)",
-          }}>
+          <a href="https://kalender.umsatzpilot.com/umsatzpilot" target="_blank" rel="noopener noreferrer"
+            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "14px 32px", borderRadius: "100px", background: c.green, color: "#000", fontSize: "15px", fontWeight: 700, textDecoration: "none", letterSpacing: "-0.01em", transition: "opacity 0.15s" }}
+            onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
+            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+          >
             Kostenloses Analysegespräch buchen
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M7 17L17 7M7 7h10v10" />
             </svg>
           </a>

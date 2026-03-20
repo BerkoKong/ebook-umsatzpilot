@@ -81,8 +81,8 @@ export function UeberUns() {
           <div style={{ padding: "clamp(28px,4vw,40px) clamp(24px,4vw,36px) clamp(28px,4vw,36px)" }}>
             <div style={{ marginBottom: "28px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "linear-gradient(135deg, #1a1a1a, #111)", border: `1px solid ${c.cardBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "20px", fontWeight: 800, color: c.white }}>BC</span>
+                <div style={{ width: "48px", height: "48px", borderRadius: "14px", overflow: "hidden", border: `1px solid ${c.cardBorder}`, flexShrink: 0 }}>
+                  <img src="/images/Headshot_Berk copy.png" alt="Berk Celikkol" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                 </div>
                 <div>
                   <h3 style={{ fontSize: "22px", fontWeight: 800, color: c.white, margin: 0, lineHeight: 1.2 }}>Berk Celikkol</h3>

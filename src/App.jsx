@@ -22,9 +22,9 @@ const Spacer = () => <div style={{ paddingTop: '80px' }} />;
 
 export default function App() {
   return (
-    <div style={{ background: c.bg, minHeight: '100vh', position: 'relative', fontFamily: "'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
+    <div style={{ background: c.bg, minHeight: '100vh', position: 'relative', fontFamily: "'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, sans-serif", overflowX: 'hidden' }}>
       <Particles />
-      <div style={{ position: 'absolute', top: '-300px', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '800px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '-300px', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '800px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)', pointerEvents: 'none', maxWidth: '100vw' }} />
 
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: 'clamp(60px,10vw,100px) clamp(16px,4vw,28px) 80px', position: 'relative' }}>
 

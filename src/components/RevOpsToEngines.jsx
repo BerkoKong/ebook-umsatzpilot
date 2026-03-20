@@ -524,7 +524,7 @@ export function RevOpsToEngines() {
         <Body>
           Die Beziehung zwischen RevOps und den Engines ist keine Entweder-oder-Entscheidung — es ist eine Abhängigkeit.
         </Body>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", margin: "0 0 20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "12px", margin: "0 0 20px" }}>
           <div style={{ background: c.card, border: `1px solid ${c.cardBorder}`, borderRadius: "10px", padding: "16px 18px" }}>
             <p style={{ fontSize: "12px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 6px" }}>RevOps</p>
             <p style={{ fontSize: "15px", fontWeight: 700, color: c.white, margin: 0 }}>Was passieren soll</p>

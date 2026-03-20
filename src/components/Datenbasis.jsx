@@ -57,7 +57,7 @@ function Expander({ label, title, children }) {
         onClick={() => setOpen(o => !o)}
         style={{ width: "100%", background: "transparent", border: "none", cursor: "pointer", padding: "14px 20px", textAlign: "left", display: "flex", flexDirection: "column", gap: "2px" }}
       >
-        {label && <span style={{ fontSize: "10px", fontWeight: 600, color: "#666", letterSpacing: "0.1em", textTransform: "uppercase" }}>{label}</span>}
+        {label && <span style={{ fontSize: "11px", fontWeight: 600, color: "#666", letterSpacing: "0.1em", textTransform: "uppercase" }}>{label}</span>}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ fontSize: "14px", fontWeight: 600, color: open ? c.white : "#999", transition: "color 0.2s" }}>{title}</span>
           <span style={{ color: "#555", fontSize: "11px", flexShrink: 0, marginLeft: "12px", transition: "transform 0.3s", display: "inline-block", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
@@ -83,7 +83,7 @@ function Wissenspyramide() {
   // At y=208: dx=150*(180/264)=102.3 → L=97.7, R=302.3
   return (
     <div style={{ background: "#070707", borderRadius: "14px", border: `1px solid ${c.cardBorder}`, padding: "clamp(16px,2.5vw,24px) clamp(12px,2vw,20px) 16px", marginBottom: "40px" }}>
-      <p style={{ fontSize: "10px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.12em", textTransform: "uppercase", textAlign: "center", margin: "0 0 2px" }}>Abbildung</p>
+      <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, letterSpacing: "0.12em", textTransform: "uppercase", textAlign: "center", margin: "0 0 2px" }}>Abbildung</p>
       <p style={{ fontSize: "13px", fontWeight: 600, color: c.textSecondary, textAlign: "center", margin: "0 0 8px" }}>Die Wissenspyramide — Von Daten zu Entscheidungen</p>
       <svg viewBox="0 0 580 310" style={{ width: "100%", height: "auto" }}>
         {/* Layer fills */}
@@ -116,7 +116,7 @@ function Wissenspyramide() {
         <circle cx="270" cy="124" r="3" fill="rgba(96,165,250,0.4)" />
         <circle cx="318" cy="208" r="3" fill="rgba(255,255,255,0.2)" />
       </svg>
-      <p style={{ fontSize: "10.5px", color: c.textMuted, textAlign: "center", fontStyle: "italic", margin: "4px 0 0" }}>
+      <p style={{ fontSize: "11px", color: c.textMuted, textAlign: "center", fontStyle: "italic", margin: "4px 0 0" }}>
         Von Rohdaten zu Vertriebsintelligenz — jede Ebene erhöht den Wert für dein Unternehmen
       </p>
     </div>
@@ -145,7 +145,7 @@ function HubSpokeZeichnung() {
   });
   return (
     <div style={{ background: "#070707", borderRadius: "12px", border: `1px solid ${c.cardBorder}`, padding: "clamp(14px,2vw,20px) clamp(10px,2vw,16px) 10px", marginBottom: "20px" }}>
-      <p style={{ fontSize: "10px", fontWeight: 600, color: c.textMuted, textAlign: "center", letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 2px" }}>Abbildung 1</p>
+      <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, textAlign: "center", letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 2px" }}>Abbildung 1</p>
       <p style={{ fontSize: "12px", color: c.textSecondary, textAlign: "center", margin: "0 0 4px" }}>Hub-Spoke-Architektur: Alle Tools verbunden über n8n</p>
       <svg viewBox="0 0 560 390" style={{ width: "100%", height: "auto" }}>
         {/* Hub glow */}
@@ -193,7 +193,7 @@ function DatenbankTabelle() {
     { label: "Vektordatenbank", color: c.green },
   ];
   return (
-    <div style={{ background: "#070707", borderRadius: "14px", border: `1px solid ${c.cardBorder}`, overflow: "hidden", marginBottom: "24px" }}>
+    <div style={{ background: "#070707", borderRadius: "14px", border: `1px solid ${c.cardBorder}`, overflow: "hidden", marginBottom: "24px", overflowX: "auto" }}>
       {/* Header row */}
       <div style={{ display: "grid", gridTemplateColumns: "140px 1fr 1fr 1fr", borderBottom: `1px solid ${c.cardBorder}` }}>
         <div style={{ padding: "14px 14px", borderRight: `1px solid ${c.cardBorder}` }} />
@@ -260,7 +260,7 @@ const FUENF_FEHLER = [
 function DiagramFrame({ num, title, children }) {
   return (
     <div style={{ background: "#070707", borderRadius: "14px", border: `1px solid ${c.cardBorder}`, padding: "clamp(14px,2vw,20px) clamp(12px,2vw,18px) 12px", marginBottom: "28px" }}>
-      <p style={{ fontSize: "10px", fontWeight: 600, color: c.textMuted, textAlign: "center", letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 2px" }}>Abbildung {num}</p>
+      <p style={{ fontSize: "11px", fontWeight: 600, color: c.textMuted, textAlign: "center", letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 2px" }}>Abbildung {num}</p>
       <p style={{ fontSize: "12px", fontWeight: 600, color: c.textSecondary, textAlign: "center", margin: "0 0 6px" }}>{title}</p>
       {children}
     </div>
@@ -711,7 +711,7 @@ export function Datenbasis() {
             { color: c.green, label: "Ebene 3", title: "Wissen", body: "Die Fähigkeit zu handeln. Dieser Kontakt will ein Angebot, kein Whitepaper. Termin anbieten, nicht nurturieren." },
           ].map((item, i) => (
             <div key={i} style={{ background: c.card, borderRadius: "12px", padding: "20px", border: `1px solid ${c.cardBorder}` }}>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: item.color, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 6px" }}>{item.label}</p>
+              <p style={{ fontSize: "11px", fontWeight: 700, color: item.color, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 6px" }}>{item.label}</p>
               <h4 style={{ fontSize: "16px", fontWeight: 700, color: c.white, margin: "0 0 10px" }}>{item.title}</h4>
               <p style={{ fontSize: "13.5px", color: c.textSecondary, lineHeight: 1.65, margin: 0 }}>{item.body}</p>
             </div>
@@ -906,7 +906,7 @@ export function Datenbasis() {
             Statt jedes Tool einzeln mit jedem anderen zu verbinden, setzt du eine zentrale Integrationsplattform in die Mitte (bei uns: n8n). Alle deine bestehenden Tools verbinden sich mit diesem Hub. Er übernimmt Datensynchronisation, event-basierte Trigger und Datentransformation. Dein Team arbeitet weiter in den gewohnten Tools, die Daten fließen automatisch.
           </Body>
           <div style={{ borderRadius: "12px", overflow: "hidden", border: `1px solid ${c.cardBorder}`, marginBottom: "20px" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" }}>
               {[["Kriterium", c.textMuted], ["Vorher (Toolchaos)", c.red], ["Nachher (Hub-Spoke)", c.green]].map(([h, col]) => (
                 <div key={h} style={{ padding: "10px 14px", fontSize: "11px", fontWeight: 700, color: col, letterSpacing: "0.08em", textTransform: "uppercase", background: "rgba(255,255,255,0.03)" }}>{h}</div>
               ))}
@@ -917,7 +917,7 @@ export function Datenbasis() {
               ["Datenkonsistenz", "Widersprüchlich", "Eine Wahrheit"],
               ["Reporting", "Excel-Flickwerk", "Live-Dashboards"],
             ].map(([krit, vorher, nachher]) => (
-              <div key={krit} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderTop: `1px solid ${c.cardBorder}` }}>
+              <div key={krit} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", borderTop: `1px solid ${c.cardBorder}` }}>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textPrimary, fontWeight: 600 }}>{krit}</div>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textSecondary }}>{vorher}</div>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.green }}>{nachher}</div>
@@ -950,7 +950,7 @@ export function Datenbasis() {
                 Für jeden Datentyp wird genau ein System als Master definiert. Dieses System ist die einzige Quelle der Wahrheit für diesen Datentyp. Alle anderen Systeme empfangen die Daten vom Hub und überschreiben sie nicht.
               </Body>
               <div style={{ marginBottom: "20px", borderRadius: "12px", overflow: "hidden", border: `1px solid ${c.cardBorder}` }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.5fr" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" }}>
                   {["Datentyp", "Master-System", "Synchronisationsrichtung"].map(h => (
                     <div key={h} style={{ padding: "10px 14px", fontSize: "11px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.08em", textTransform: "uppercase", background: "rgba(255,255,255,0.03)" }}>{h}</div>
                   ))}
@@ -962,7 +962,7 @@ export function Datenbasis() {
                   ["Termine & Meetings", "Kalender-Tool", "Kalender führt, CRM wird informiert"],
                   ["Website-Verhalten", "Tracking/Analytics", "Events fließen ins CRM"],
                 ].map(([typ, master, sync]) => (
-                  <div key={typ} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.5fr", borderTop: `1px solid ${c.cardBorder}` }}>
+                  <div key={typ} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", borderTop: `1px solid ${c.cardBorder}` }}>
                     <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textPrimary }}>{typ}</div>
                     <div style={{ padding: "10px 14px", fontSize: "13px", color: c.white, fontWeight: 600 }}>{master}</div>
                     <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textSecondary }}>{sync}</div>
@@ -1004,7 +1004,7 @@ export function Datenbasis() {
               </div>
               <h4 style={{ fontSize: "16px", fontWeight: 700, color: c.white, margin: "24px 0 10px" }}>Implementierung: 4 Wochen</h4>
               <div style={{ borderRadius: "12px", overflow: "hidden", border: `1px solid ${c.cardBorder}` }}>
-                <div style={{ display: "grid", gridTemplateColumns: "100px 1fr 1fr" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" }}>
                   {["Phase", "Was passiert", "Ergebnis"].map(h => (
                     <div key={h} style={{ padding: "10px 14px", fontSize: "11px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.08em", textTransform: "uppercase", background: "rgba(255,255,255,0.03)" }}>{h}</div>
                   ))}
@@ -1015,7 +1015,7 @@ export function Datenbasis() {
                   ["Woche 3", "Build: Kern-Workflows implementieren, Spokes anbinden, testen", "Funktionierende Automatisierungen"],
                   ["Woche 4", "Optimierung: Feintuning, Team-Schulung, Go-Live", "Produktives System"],
                 ].map(([phase, was, ergebnis]) => (
-                  <div key={phase} style={{ display: "grid", gridTemplateColumns: "100px 1fr 1fr", borderTop: `1px solid ${c.cardBorder}` }}>
+                  <div key={phase} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", borderTop: `1px solid ${c.cardBorder}` }}>
                     <div style={{ padding: "12px 14px", fontSize: "13px", color: c.amber, fontWeight: 700 }}>{phase}</div>
                     <div style={{ padding: "12px 14px", fontSize: "13px", color: c.textSecondary, lineHeight: 1.5 }}>{was}</div>
                     <div style={{ padding: "12px 14px", fontSize: "13px", color: c.textPrimary, lineHeight: 1.5 }}>{ergebnis}</div>
@@ -1040,7 +1040,7 @@ export function Datenbasis() {
             Statt dass jedes Tool seine eigene Version deiner Daten verwaltet, baust du eine eigene zentrale Datenbank auf, die als einzige Wahrheitsquelle für alle Systeme dient. Alle Tools lesen aus dieser Datenbank und schreiben in diese Datenbank. Deine Daten gehören dir, nicht HubSpot oder Pipedrive. Tool-Wechsel werden trivial: Die Daten bleiben, nur der Connector ändert sich.
           </Body>
           <div style={{ borderRadius: "12px", overflow: "hidden", border: `1px solid ${c.cardBorder}`, marginBottom: "20px" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" }}>
               {[["Kriterium", c.textMuted], ["Hub-Spoke (Ansatz 1)", c.amber], ["Zentrale DB / SSOT", c.green]].map(([h, col]) => (
                 <div key={h} style={{ padding: "10px 14px", fontSize: "11px", fontWeight: 700, color: col, letterSpacing: "0.08em", textTransform: "uppercase", background: "rgba(255,255,255,0.03)" }}>{h}</div>
               ))}
@@ -1051,7 +1051,7 @@ export function Datenbasis() {
               ["Reporting", "Begrenzt (mehrere APIs)", "Unbegrenzt (direktes SQL)"],
               ["Tool-Wechsel", "Workflows anpassen", "Nur Connector ändern"],
             ].map(([krit, v1, v2]) => (
-              <div key={krit} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderTop: `1px solid ${c.cardBorder}` }}>
+              <div key={krit} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", borderTop: `1px solid ${c.cardBorder}` }}>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textPrimary, fontWeight: 600 }}>{krit}</div>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.textSecondary }}>{v1}</div>
                 <div style={{ padding: "10px 14px", fontSize: "13px", color: c.green }}>{v2}</div>
@@ -1209,9 +1209,13 @@ export function Datenbasis() {
             <p style={{ fontSize: "14.5px", color: c.textSecondary, lineHeight: 1.7, margin: "0 0 16px" }}>
               In 45 Minuten analysieren wir deine aktuelle Infrastruktur: Tools, Datenflüsse, Prozesse, KPIs. Du erhältst eine klare Empfehlung, Hub-Spoke oder SSOT, inklusive Fahrplan mit Zeitrahmen und erwartbarem ROI. Unabhängig davon, ob du mit uns zusammenarbeitest.
             </p>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: c.green, color: "#000", padding: "12px 24px", borderRadius: "8px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>
-              Kostenloses Analysegespräch buchen →
-            </div>
+            <a href="https://kalender.umsatzpilot.com/umsatzpilot" target="_blank" rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: c.green, color: "#000", padding: "14px 32px", borderRadius: "100px", fontSize: "15px", fontWeight: 700, textDecoration: "none", letterSpacing: "-0.01em", transition: "opacity 0.15s", cursor: "pointer" }}
+              onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
+              onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+            >
+              Kostenloses Analysegespräch buchen
+            </a>
           </div>
         </div>
       </Reveal>

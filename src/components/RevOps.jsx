@@ -293,7 +293,7 @@ export function RevOps() {
       <Reveal>
         <div style={{ background: "rgba(255,255,255,0.025)", border: `1px solid ${c.cardBorderHover}`, borderRadius: "16px", padding: "clamp(24px,4vw,36px)", textAlign: "center", marginBottom: "40px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)` }} />
-          <p style={{ fontSize: "10px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 14px" }}>Kernaussage</p>
+          <p style={{ fontSize: "11px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 14px" }}>Kernaussage</p>
           <p style={{ fontSize: "clamp(18px,2.5vw,22px)", fontWeight: 800, color: c.white, lineHeight: 1.3, margin: "0 0 14px" }}>
             KI ersetzt nicht den Vertriebler, sondern die Arbeit, die ihn vom Verkaufen abhält.
           </p>
