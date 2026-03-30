@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "../shared/Badge";
 import { Reveal, useInView } from "../shared/Reveal";
-import { c, GRID2 } from "../shared/tokens";
+import { c } from "../shared/tokens";
 
 function StatBlock({ value, label, delay = 0 }) {
   const [ref, v] = useInView(0.1);
@@ -38,25 +38,6 @@ function KernwertCard({ svgPath, title, text, delay = 0 }) {
   );
 }
 
-function Milestone({ year, text, highlight, delay = 0 }) {
-  const [ref, v] = useInView(0.1);
-  return (
-    <Reveal delay={delay}>
-      <div style={{ display: "flex", gap: "16px", position: "relative" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: "20px" }}>
-          <div ref={ref} style={{ width: "8px", height: "8px", borderRadius: "50%", background: v ? c.white : "#333", transition: "all 0.5s ease", flexShrink: 0, marginTop: "7px" }} />
-          <div style={{ width: "1px", flex: 1, background: c.cardBorder, minHeight: "24px" }} />
-        </div>
-        <div style={{ paddingBottom: "24px" }}>
-          <span style={{ fontSize: "12px", fontWeight: 700, color: c.textMuted, letterSpacing: "0.06em" }}>{year}</span>
-          <p style={{ fontSize: "14.5px", color: c.textPrimary, lineHeight: 1.6, margin: "4px 0 0" }}>
-            {text}{highlight && <strong style={{ color: c.white }}> {highlight}</strong>}
-          </p>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
 
 export function UeberUns() {
   return (
@@ -97,7 +78,7 @@ export function UeberUns() {
             </div>
             <div style={{ marginBottom: "32px" }}>
               <p style={{ fontSize: "15.5px", color: c.textPrimary, lineHeight: 1.75, margin: "0 0 16px" }}>
-                Wirtschaftsinformatiker, KI-Ingenieur und Gründer der Unternehmensgruppe BetaGamma. Mit über 300 betreuten Kunden, mehr als 1.000 gebauten KI-Systemen und einer eigenen Vertriebssoftware mit 200 aktiven Nutzern. Ausgezeichnet mit Fachpreisen der Deutschen Mathematiker-Vereinigung, der Deutschen Physikalischen Gesellschaft und der Gesellschaft für Informatik.
+                Wirtschaftsinformatiker, KI-Ingenieur und Gründer der Unternehmensgruppe BetaGamma. Mit über 50 betreuten Unternehmen, mehr als 1.000 gebauten KI-Systemen und einer eigenen Vertriebssoftware mit 200 aktiven Nutzern. Ausgezeichnet mit Fachpreisen der Deutschen Mathematiker-Vereinigung, der Deutschen Physikalischen Gesellschaft und der Gesellschaft für Informatik.
               </p>
               <p style={{ fontSize: "15.5px", color: c.textPrimary, lineHeight: 1.75, margin: "0 0 16px" }}>
                 Ich kenne die Situation aus erster Hand: Alles hängt an einer Person, 16-Stunden-Tage, Vertrieblern vertraut, die nach wenigen Monaten die Motivation verlieren. Umsatzeinbrüche ohne Planbarkeit. Umsatz war immer an Köpfe gekoppelt.
@@ -120,20 +101,8 @@ export function UeberUns() {
             <StatBlock value="100.000+" label="Qualifizierte Leads" delay={0.1} />
             <StatBlock value="12.000+" label="Qualifizierte Termine" delay={0.2} />
             <StatBlock value="1.000+" label="Aktive RevOps-Systeme" delay={0.3} />
-            <StatBlock value="300+" label="Betreute Kunden" delay={0.4} />
+            <StatBlock value="50+" label="Betreute Unternehmen" delay={0.4} />
           </div>
-        </div>
-      </Reveal>
-
-      {/* Timeline */}
-      <Reveal>
-        <div style={{ background: c.card, borderRadius: "16px", padding: "clamp(24px,3vw,32px) clamp(20px,3vw,28px)", border: `1px solid ${c.cardBorder}`, marginBottom: "48px" }}>
-          <h3 style={{ fontSize: "17px", fontWeight: 700, color: c.white, margin: "0 0 24px" }}>Der Weg zu Umsatzpilot</h3>
-          <Milestone year="2021" text="Erstes Unternehmen gegründet. Harte Lektion gelernt:" highlight="Systeme schlagen Hustle." delay={0.08} />
-          <Milestone year="2022" text="Studium Wirtschaftsinformatik. Abitur 1,0 mit drei Fachpreisen (Mathematik, Physik, Informatik)." delay={0.12} />
-          <Milestone year="Jan 2023" text="Gründung der Unternehmensgruppe BetaGamma." highlight="Skalierung auf 150.000+ Euro monatlich." delay={0.16} />
-          <Milestone year="2023 bis 2024" text="Über 300 Kunden betreut, eigene Vertriebssoftware mit 200 aktiven Nutzern gelauncht." highlight="Mehr als 1.000 KI-Systeme gebaut." delay={0.2} />
-          <Milestone year="Okt 2024" text="Umsatzpilot geht live. Fokus: KI-gestützte Umsatzsysteme für B2B-Dienstleister." delay={0.24} />
         </div>
       </Reveal>
 
