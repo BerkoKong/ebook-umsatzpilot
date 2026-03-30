@@ -27,19 +27,29 @@ export function Cover() {
       {/* Title */}
       <Reveal delay={0.15}>
         <h1 style={{
-          fontSize: "clamp(36px,7vw,68px)", fontWeight: 800, color: c.white,
-          margin: "0 0 20px", lineHeight: 1.05, letterSpacing: "-0.035em",
+          fontSize: "clamp(40px,8vw,80px)", fontWeight: 800, color: c.white,
+          margin: "0 0 16px", lineHeight: 1.0, letterSpacing: "-0.04em",
           maxWidth: "700px",
         }}>
-          Skalieren ohne Neueinstellungen
+          Umsatz auf Autopilot
         </h1>
       </Reveal>
 
-      {/* Subtitle */}
+      {/* Subtitle 1 */}
       <Reveal delay={0.2}>
         <p style={{
-          fontSize: "clamp(15px,2vw,18px)", color: c.textSecondary, lineHeight: 1.7,
-          margin: "0 0 56px", maxWidth: "560px",
+          fontSize: "clamp(17px,2.5vw,22px)", fontWeight: 600, color: c.textPrimary,
+          margin: "0 0 16px", letterSpacing: "-0.01em",
+        }}>
+          Skalierung mit System
+        </p>
+      </Reveal>
+
+      {/* Subtitle 2 */}
+      <Reveal delay={0.25}>
+        <p style={{
+          fontSize: "clamp(14px,1.8vw,16px)", color: c.textSecondary, lineHeight: 1.7,
+          margin: "0 0 56px", maxWidth: "520px",
         }}>
           Wie B2B-Unternehmen in 2026 ihren Umsatz mit KI-gestützten Systemen skalieren, ohne mehr Personal einzustellen.
         </p>
