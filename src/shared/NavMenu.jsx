@@ -48,20 +48,28 @@ export function NavMenu() {
   // Close overlay when switching to large
   useEffect(() => { if (isLarge) setOpen(false); }, [isLarge]);
 
-  // Active section tracking
+  // Active section tracking — throttled with rAF
   useEffect(() => {
+    let rafId = null;
     const onScroll = () => {
-      const threshold = window.scrollY + window.innerHeight * 0.3;
-      let active = SECTIONS[0].id;
-      for (const s of SECTIONS) {
-        const el = document.getElementById(s.id);
-        if (el && el.offsetTop <= threshold) active = s.id;
-      }
-      setActiveId(active);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const threshold = window.scrollY + window.innerHeight * 0.3;
+        let active = SECTIONS[0].id;
+        for (const s of SECTIONS) {
+          const el = document.getElementById(s.id);
+          if (el && el.offsetTop <= threshold) active = s.id;
+        }
+        setActiveId(active);
+        rafId = null;
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Close on outside click (overlay mode only)
@@ -95,12 +103,11 @@ export function NavMenu() {
         top: '60px',
         bottom: '24px',
         width: '190px',
-        background: 'rgba(6,7,10,0.85)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        background: '#0a0b0d',
         border: '1px solid #181818',
         borderRadius: '12px',
         zIndex: 900,
+        willChange: 'transform',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -220,10 +227,9 @@ export function NavMenu() {
           padding: isSmall ? '13px 22px' : '10px 16px',
           minHeight: '44px',
           minWidth: isSmall ? '130px' : 'auto',
-          background: 'rgba(8,8,10,0.9)',
-          backdropFilter: 'blur(14px)',
-          WebkitBackdropFilter: 'blur(14px)',
+          background: '#0a0b0d',
           border: `1px solid ${isSmall ? '#252525' : '#1e1e1e'}`,
+          willChange: 'transform',
           borderRadius: '100px',
           color: isSmall ? c.textPrimary : c.textSecondary,
           fontSize: isSmall ? '15px' : '13px',
@@ -252,9 +258,7 @@ export function NavMenu() {
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(0,0,0,0.6)',
-          backdropFilter: 'blur(3px)',
-          WebkitBackdropFilter: 'blur(3px)',
+          background: 'rgba(0,0,0,0.7)',
           zIndex: 941,
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'all' : 'none',
@@ -276,6 +280,7 @@ export function NavMenu() {
           zIndex: 942,
           transform: open ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.3s cubic-bezier(.25,.46,.45,.94)',
+          willChange: 'transform',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'auto',
