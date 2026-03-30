@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import '@fontsource-variable/inter';
-import '@fontsource/jetbrains-mono';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-700.css';
 import { Particles } from './shared/Particles';
 import { Divider } from './shared/Divider';
 import { ProgressBar } from './shared/ProgressBar';

@@ -951,15 +951,6 @@ function WorkflowMap({ cards, summary }) {
 
 /* ─── Main Export ────────────────────────────────────────── */
 export function DemandGenWorkflows() {
-  useEffect(() => {
-    const id = 'jb-mono-font';
-    if (document.getElementById(id)) return;
-    const link = document.createElement('link');
-    link.id   = id;
-    link.rel  = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap';
-    document.head.appendChild(link);
-  }, []);
 
   return (
     <>
