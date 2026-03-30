@@ -1,11 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 
-// Respect system "reduce motion" preference — no animation, instant appear
+// On desktop (>768px) all scroll animations are disabled:
+// - No IntersectionObserver registered
+// - Elements render immediately visible
+// - Zero React state updates during scroll
+const isDesktop =
+  typeof window !== "undefined" && window.innerWidth > 768;
+
+// Respect system "reduce motion" preference
 const prefersReducedMotion =
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Single shared IntersectionObserver for all Reveal elements (performance)
+const skipAnimation = isDesktop || prefersReducedMotion;
+
+// Single shared IntersectionObserver (only used on mobile)
 const _callbacks = new Map();
 let _observer = null;
 
@@ -24,7 +33,6 @@ function getObserver() {
           }
         });
       },
-      // 0.15 instead of 0.08 — fewer callbacks per scroll pixel in Chrome
       { threshold: 0.15 }
     );
   }
@@ -33,8 +41,10 @@ function getObserver() {
 
 export function useInView(t = 0.15) {
   const ref = useRef(null);
-  const [v, setV] = useState(false);
+  // On desktop: always visible, skip observer entirely
+  const [v, setV] = useState(skipAnimation);
   useEffect(() => {
+    if (skipAnimation) return;
     const el = ref.current;
     if (!el) return;
     const obs = getObserver();
@@ -50,14 +60,11 @@ export function useInView(t = 0.15) {
 
 export function Reveal({ children, delay = 0, style: s = {} }) {
   const [ref, v] = useInView();
-  // prefers-reduced-motion: skip animation, show immediately
-  if (prefersReducedMotion) {
-    return <div ref={ref} style={s}>{children}</div>;
+  if (skipAnimation) {
+    return <div style={s}>{children}</div>;
   }
   return (
     <div ref={ref} style={{
-      // No will-change — Chrome creates too many GPU layers when 40+ elements have it.
-      // opacity + transform are both compositor-only properties; no will-change needed.
       opacity: v ? 1 : 0,
       transform: v ? "translateY(0)" : "translateY(20px)",
       transition: `opacity 0.55s cubic-bezier(.25,.46,.45,.94) ${delay}s, transform 0.55s cubic-bezier(.25,.46,.45,.94) ${delay}s`,
