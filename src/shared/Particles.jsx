@@ -53,7 +53,7 @@ export function Particles() {
   return (
     <canvas
       ref={r}
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+      style={{ position: "fixed", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}
     />
   );
 }
