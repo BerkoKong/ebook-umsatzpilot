@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
+// Respect system "reduce motion" preference — no animation, instant appear
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 // Single shared IntersectionObserver for all Reveal elements (performance)
 const _callbacks = new Map();
 let _observer = null;
@@ -45,6 +50,10 @@ export function useInView(t = 0.15) {
 
 export function Reveal({ children, delay = 0, style: s = {} }) {
   const [ref, v] = useInView();
+  // prefers-reduced-motion: skip animation, show immediately
+  if (prefersReducedMotion) {
+    return <div ref={ref} style={s}>{children}</div>;
+  }
   return (
     <div ref={ref} style={{
       // No will-change — Chrome creates too many GPU layers when 40+ elements have it.
