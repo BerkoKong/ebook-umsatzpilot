@@ -183,12 +183,12 @@ export function ConversionCTA() {
 
       {/* Price Block */}
       <Reveal>
-        <div style={{ background: c.card, borderRadius: "12px", padding: "24px 28px", border: `1px solid ${c.cardBorder}`, marginBottom: "48px", maxWidth: "620px", marginLeft: "auto", marginRight: "auto" }}>
-          <p style={{ fontSize: "15px", color: c.textPrimary, lineHeight: 1.7, margin: "0 0 12px" }}>
-            <strong style={{ color: c.white }}>Die Investition:</strong> Der Invest für ein funktionsfähiges System liegt bei uns im 4- bis 5-stelligen Bereich. Der konkrete Preis ist abhängig davon, welche Bausteine in deinem Unternehmen Sinn machen.
+        <div style={{ background: c.card, borderRadius: "12px", padding: "24px 28px", border: `1px solid rgba(34,197,94,0.15)`, marginBottom: "48px", maxWidth: "620px", marginLeft: "auto", marginRight: "auto" }}>
+          <p style={{ fontSize: "15px", color: c.white, lineHeight: 1.7, margin: "0 0 12px" }}>
+            <strong style={{ color: c.green }}>Die Investition:</strong> Der Invest für ein funktionsfähiges System fängt bei uns nur im 4-stelligen Bereich an. Der konkrete Preis ist abhängig davon, welche Bausteine in deinem Unternehmen Sinn machen und wie lange die Zusammenarbeit geht.
           </p>
-          <p style={{ fontSize: "14px", color: c.textSecondary, lineHeight: 1.6, margin: 0 }}>
-            Viele Interessenten sind überrascht, dass es möglich ist, mit Umsatzpilot deutlich unterhalb von 10.000 Euro zu starten. Das können wir anbieten, weil wir selbst auf die Systeme und KI-Mitarbeiter setzen, die wir für unsere Kunden bauen.
+          <p style={{ fontSize: "15px", color: c.textPrimary, lineHeight: 1.7, margin: 0 }}>
+            Viele Interessenten sind überrascht, dass es möglich ist, mit Umsatzpilot mit niedrigen 4-stelligen Beiträgen im Monat zu starten. Das können wir anbieten, weil wir selbst auf die Systeme und KI-Mitarbeiter setzen, die wir für unsere Kunden bauen.
           </p>
         </div>
       </Reveal>
