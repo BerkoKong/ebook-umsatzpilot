@@ -48,8 +48,19 @@ export function NavMenu() {
   // Close overlay when switching to large
   useEffect(() => { if (isLarge) setOpen(false); }, [isLarge]);
 
-  // Active section tracking — throttled with rAF
+  // Cache section positions — reading offsetTop inside rAF forces 16 synchronous reflows per frame.
+  // Cache once at mount + on resize; the scroll handler only reads window.scrollY (no layout reads).
+  const sectionTops = useRef({});
+  const cacheTops = () => {
+    SECTIONS.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) sectionTops.current[s.id] = el.offsetTop;
+    });
+  };
+
+  // Active section tracking — throttled with rAF, zero layout reads during scroll
   useEffect(() => {
+    cacheTops();
     let rafId = null;
     const onScroll = () => {
       if (rafId) return;
@@ -57,17 +68,18 @@ export function NavMenu() {
         const threshold = window.scrollY + window.innerHeight * 0.3;
         let active = SECTIONS[0].id;
         for (const s of SECTIONS) {
-          const el = document.getElementById(s.id);
-          if (el && el.offsetTop <= threshold) active = s.id;
+          if ((sectionTops.current[s.id] ?? Infinity) <= threshold) active = s.id;
         }
         setActiveId(active);
         rafId = null;
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', cacheTops, { passive: true });
     onScroll();
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', cacheTops);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
