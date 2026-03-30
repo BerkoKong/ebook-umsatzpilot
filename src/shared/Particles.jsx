@@ -10,6 +10,9 @@ export function Particles() {
     let lastTime = 0;
     const FPS = 20;
     const interval = 1000 / FPS;
+    // Cache dimensions — never read offsetWidth/offsetHeight inside the RAF loop
+    let cW = 0;
+    let cH = 0;
 
     const dots = Array.from({ length: 22 }, () => ({
       x: Math.random() * 1200, y: Math.random() * 14000,
@@ -18,8 +21,10 @@ export function Particles() {
     }));
 
     const resize = () => {
-      cv.width = cv.offsetWidth * devicePixelRatio;
-      cv.height = cv.offsetHeight * devicePixelRatio;
+      cW = cv.offsetWidth;
+      cH = cv.offsetHeight;
+      cv.width = cW * devicePixelRatio;
+      cv.height = cH * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
     };
     resize();
@@ -31,13 +36,13 @@ export function Particles() {
       if (delta < interval) return;
       lastTime = timestamp - (delta % interval);
 
-      ctx.clearRect(0, 0, cv.offsetWidth, cv.offsetHeight);
+      ctx.clearRect(0, 0, cW, cH);
       dots.forEach(d => {
         d.x += d.vx; d.y += d.vy;
-        if (d.x < 0) d.x = cv.offsetWidth;
-        if (d.x > cv.offsetWidth) d.x = 0;
-        if (d.y < 0) d.y = cv.offsetHeight;
-        if (d.y > cv.offsetHeight) d.y = 0;
+        if (d.x < 0) d.x = cW;
+        if (d.x > cW) d.x = 0;
+        if (d.y < 0) d.y = cH;
+        if (d.y > cH) d.y = 0;
         ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${d.a})`; ctx.fill();
       });
@@ -48,7 +53,7 @@ export function Particles() {
   return (
     <canvas
       ref={r}
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", willChange: "transform" }}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
     />
   );
 }

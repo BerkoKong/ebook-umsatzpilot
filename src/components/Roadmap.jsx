@@ -220,15 +220,15 @@ function PhaseCard({ phase, index, isOpen, onToggle }) {
         </div>
       </div>
 
-      {/* Expandable content */}
+      {/* Expandable content — CSS grid rows avoids maxHeight layout thrashing in Chrome */}
       <div style={{
-        overflow: 'hidden',
-        maxHeight: isOpen ? '1400px' : '0px',
+        display: 'grid',
+        gridTemplateRows: isOpen ? '1fr' : '0fr',
         opacity: isOpen ? 1 : 0,
-        transition: 'max-height 0.35s cubic-bezier(.25,.46,.45,.94), opacity 0.25s',
+        transition: 'grid-template-rows 0.35s cubic-bezier(.25,.46,.45,.94), opacity 0.25s',
         marginLeft: '30px',
-        marginBottom: isOpen ? '0' : '0',
       }}>
+        <div style={{ overflow: 'hidden', minHeight: 0 }}>
         <div style={{
           padding: '20px 20px 20px 32px',
           borderLeft: `2px solid ${phase.color}33`,
@@ -316,6 +316,7 @@ function PhaseCard({ phase, index, isOpen, onToggle }) {
             <span style={{ color: phase.color, flexShrink: 0 }}>→</span>
             {phase.result}
           </div>
+        </div>
         </div>
       </div>
     </div>

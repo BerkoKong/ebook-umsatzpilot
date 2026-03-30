@@ -8,7 +8,7 @@ function VS({ time, text, delay = 0 }) {
     <Reveal delay={delay}>
       <div style={{ display: "flex", gap: "20px", position: "relative" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: "20px" }}>
-          <div ref={ref} style={{ width: "10px", height: "10px", borderRadius: "50%", background: v ? c.green : c.cardBorder, border: `2px solid ${v ? "rgba(34,197,94,0.3)" : c.cardBorder}`, transition: "all 0.6s ease", boxShadow: v ? "0 0 12px rgba(34,197,94,0.2)" : "none", flexShrink: 0, marginTop: "6px" }} />
+          <div ref={ref} style={{ width: "10px", height: "10px", borderRadius: "50%", background: v ? c.green : c.cardBorder, border: `2px solid ${v ? "rgba(34,197,94,0.3)" : c.cardBorder}`, transition: "background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease", boxShadow: v ? "0 0 12px rgba(34,197,94,0.2)" : "0 0 0 rgba(34,197,94,0)", flexShrink: 0, marginTop: "6px" }} />
           <div style={{ width: "1px", flex: 1, background: `linear-gradient(180deg, rgba(34,197,94,0.15), ${c.cardBorder})`, minHeight: "40px" }} />
         </div>
         <div style={{ paddingBottom: "32px" }}>
@@ -24,7 +24,7 @@ function VM({ value, label, delay = 0 }) {
   const [ref, v] = useInView(0.1);
   return (
     <div ref={ref} style={{ textAlign: "center" }}>
-      <div style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, color: c.green, lineHeight: 1, marginBottom: "6px", opacity: v ? 1 : 0, transform: v ? "scale(1)" : "scale(0.8)", transition: `all 0.6s cubic-bezier(.25,.46,.45,.94) ${delay}s` }}>{value}</div>
+      <div style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, color: c.green, lineHeight: 1, marginBottom: "6px", opacity: v ? 1 : 0, transform: v ? "scale(1)" : "scale(0.8)", transition: `opacity 0.6s cubic-bezier(.25,.46,.45,.94) ${delay}s, transform 0.6s cubic-bezier(.25,.46,.45,.94) ${delay}s` }}>{value}</div>
       <div style={{ fontSize: "12px", color: c.textMuted, fontWeight: 500 }}>{label}</div>
     </div>
   );
@@ -33,7 +33,6 @@ function VM({ value, label, delay = 0 }) {
 export function Wunschbild() {
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "600px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(34,197,94,0.025) 0%, transparent 70%)", pointerEvents: "none" }} />
       <Reveal><Badge color={c.green}>Dein Zielbild</Badge></Reveal>
       <Reveal delay={0.08}><h2 style={{ fontSize: "clamp(28px,4.5vw,44px)", fontWeight: 800, color: c.white, margin: "24px 0 16px", lineHeight: 1.1, letterSpacing: "-0.025em" }}>Stell dir vor, dein Unternehmen würde so laufen.</h2></Reveal>
       <Reveal delay={0.14}><p style={{ fontSize: "clamp(15px,2vw,17px)", color: c.textSecondary, lineHeight: 1.7, margin: "0 0 56px", maxWidth: "600px" }}>Kein Wunschdenken. Das passiert, wenn Wachstum an Systemen hängt statt an Personen.</p></Reveal>

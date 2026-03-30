@@ -7,7 +7,7 @@ function FC({ num, title, erkennbar, realitaet, kosten, delay = 0 }) {
   const [h, setH] = useState(false);
   return (
     <Reveal delay={delay}>
-      <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} style={{ background: c.card, borderRadius: "16px", padding: "clamp(20px,3vw,28px)", border: `1px solid ${h ? "rgba(239,68,68,0.2)" : c.cardBorder}`, transition: "border-color 0.4s ease", boxShadow: h ? "0 0 40px rgba(239,68,68,0.03)" : "none", position: "relative", overflow: "hidden", marginBottom: "12px" }}>
+      <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} style={{ background: c.card, borderRadius: "16px", padding: "clamp(20px,3vw,28px)", border: `1px solid ${h ? "rgba(239,68,68,0.2)" : c.cardBorder}`, transition: "border-color 0.4s ease", boxShadow: h ? "0 0 40px rgba(239,68,68,0.03)" : "0 0 40px rgba(239,68,68,0)", position: "relative", overflow: "hidden", marginBottom: "12px" }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: `linear-gradient(90deg, ${c.red}44, transparent)`, opacity: h ? 1 : 0.3, transition: "opacity 0.4s ease" }} />
         <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "20px" }}>
           <div style={{ width: "36px", height: "36px", borderRadius: "10px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.15)" }}>

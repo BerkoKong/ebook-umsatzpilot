@@ -47,13 +47,6 @@ export default function App() {
       <ProgressBar />
       <NavMenu />
       <Particles />
-      <div style={{
-        position: 'absolute', top: '-300px', left: '50%',
-        transform: 'translateX(-50%)', width: '800px', height: '800px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 70%)',
-        pointerEvents: 'none', maxWidth: '100vw',
-      }} />
 
       <div style={{
         maxWidth: '860px',

@@ -19,13 +19,14 @@ function getObserver() {
           }
         });
       },
-      { threshold: 0.08 }
+      // 0.15 instead of 0.08 — fewer callbacks per scroll pixel in Chrome
+      { threshold: 0.15 }
     );
   }
   return _observer;
 }
 
-export function useInView(t = 0.08) {
+export function useInView(t = 0.15) {
   const ref = useRef(null);
   const [v, setV] = useState(false);
   useEffect(() => {
@@ -46,9 +47,11 @@ export function Reveal({ children, delay = 0, style: s = {} }) {
   const [ref, v] = useInView();
   return (
     <div ref={ref} style={{
+      // No will-change — Chrome creates too many GPU layers when 40+ elements have it.
+      // opacity + transform are both compositor-only properties; no will-change needed.
       opacity: v ? 1 : 0,
-      transform: v ? "translateY(0)" : "translateY(24px)",
-      transition: `opacity 0.8s cubic-bezier(.25,.46,.45,.94) ${delay}s, transform 0.8s cubic-bezier(.25,.46,.45,.94) ${delay}s`,
+      transform: v ? "translateY(0)" : "translateY(20px)",
+      transition: `opacity 0.55s cubic-bezier(.25,.46,.45,.94) ${delay}s, transform 0.55s cubic-bezier(.25,.46,.45,.94) ${delay}s`,
       ...s,
     }}>{children}</div>
   );
