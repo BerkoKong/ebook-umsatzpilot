@@ -1,18 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
-// On desktop (>768px) all scroll animations are disabled:
-// - No IntersectionObserver registered
-// - Elements render immediately visible
-// - Zero React state updates during scroll
-const isDesktop =
-  typeof window !== "undefined" && window.innerWidth > 768;
-
 // Respect system "reduce motion" preference
 const prefersReducedMotion =
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const skipAnimation = isDesktop || prefersReducedMotion;
+const skipAnimation = prefersReducedMotion;
 
 // Single shared IntersectionObserver (only used on mobile)
 const _callbacks = new Map();
@@ -39,7 +32,7 @@ function getObserver() {
   return _observer;
 }
 
-export function useInView(t = 0.15) {
+export function useInView() {
   const ref = useRef(null);
   // On desktop: always visible, skip observer entirely
   const [v, setV] = useState(skipAnimation);
