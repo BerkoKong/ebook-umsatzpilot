@@ -147,10 +147,10 @@ export function ConversionCTA() {
             </div>
             <div style={{ padding: "20px 24px 8px" }}>
               {[
-                "3 bis 6 Monate bis zum laufenden System",
-                "Dein Team wird parallel geschult",
+                "6 bis 12 Wochen bis zum laufenden System",
+                "Langfristige Betreuung und enge Zusammenarbeit",
                 "Unsere Fehler haben wir schon gemacht (und bezahlt)",
-                "Erfolgswahrscheinlichkeit: 85%+ (basierend auf 550+ Kunden)",
+                "Erfolgsgarantie (basierend auf erprobten Systemen)",
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "12px" }}>
                   <span style={{ color: c.green, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"✓"}</span>
@@ -161,7 +161,7 @@ export function ConversionCTA() {
             <div style={{ padding: "4px 24px 20px" }}>
               <p style={{ fontSize: "13px", fontWeight: 600, color: c.green, margin: "0 0 12px", letterSpacing: "0.06em", textTransform: "uppercase" }}>Das bekommst du</p>
               {[
-                "Erprobte Systeme (bei 550+ Kunden bewiesen)",
+                "Erprobte Systeme (bei dutzenden Unternehmen bewiesen)",
                 "Persönliche Begleitung statt DIY-Chaos oder Video-Kurse",
                 "Team-Training inklusive (A-Player Entwicklung)",
                 "Messbare Ergebnisse oder Geld zurück",
