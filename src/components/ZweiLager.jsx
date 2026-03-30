@@ -5,7 +5,7 @@ import { c, GRID2 } from "../shared/tokens";
 function CC({ type, label, items, delay = 0 }) {
   const g = type === "good";
   const bdr = g ? "rgba(34,197,94,0.15)" : "rgba(239,68,68,0.12)";
-  const ic = g ? "\u2713" : "\u2717";
+  const ic = g ? "✓" : "✗";
   const col = g ? c.green : c.red;
   return (
     <Reveal delay={delay}>

@@ -7,19 +7,30 @@ export function Particles() {
     if (!cv) return;
     const ctx = cv.getContext("2d");
     let id;
-    const dots = Array.from({ length: 45 }, () => ({
+    let lastTime = 0;
+    const FPS = 20;
+    const interval = 1000 / FPS;
+
+    const dots = Array.from({ length: 22 }, () => ({
       x: Math.random() * 1200, y: Math.random() * 14000,
       r: Math.random() * 1.2 + 0.3, a: Math.random() * 0.25 + 0.04,
       vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.08,
     }));
+
     const resize = () => {
       cv.width = cv.offsetWidth * devicePixelRatio;
       cv.height = cv.offsetHeight * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
     };
     resize();
-    addEventListener("resize", resize);
-    const draw = () => {
+    addEventListener("resize", resize, { passive: true });
+
+    const draw = (timestamp) => {
+      id = requestAnimationFrame(draw);
+      const delta = timestamp - lastTime;
+      if (delta < interval) return;
+      lastTime = timestamp - (delta % interval);
+
       ctx.clearRect(0, 0, cv.offsetWidth, cv.offsetHeight);
       dots.forEach(d => {
         d.x += d.vx; d.y += d.vy;
@@ -30,10 +41,14 @@ export function Particles() {
         ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${d.a})`; ctx.fill();
       });
-      id = requestAnimationFrame(draw);
     };
-    draw();
+    draw(0);
     return () => { cancelAnimationFrame(id); removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={r} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }} />;
+  return (
+    <canvas
+      ref={r}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+    />
+  );
 }

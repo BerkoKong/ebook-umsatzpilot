@@ -360,7 +360,7 @@ export function KPIs() {
             In unserem kostenlosen Analysegespräch gehen wir gemeinsam dein Revenue-Dashboard durch, identifizieren deine Engpässe und zeigen dir, wo dein größter Hebel liegt.
           </p>
           <a
-            href="https://cal.com/umsatzpilot"
+            href="https://kalender.umsatzpilot.com/umsatzpilot/30min"
             target="_blank"
             rel="noopener noreferrer"
             style={{ display: "inline-block", background: c.green, color: "#000", fontWeight: 700, fontSize: "15px", padding: "14px 32px", borderRadius: "100px", textDecoration: "none", letterSpacing: "-0.01em", transition: "opacity 0.15s" }}

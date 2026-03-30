@@ -223,7 +223,7 @@ function PhaseCard({ phase, index, isOpen, onToggle }) {
       {/* Expandable content */}
       <div style={{
         overflow: 'hidden',
-        maxHeight: isOpen ? '800px' : '0px',
+        maxHeight: isOpen ? '1400px' : '0px',
         opacity: isOpen ? 1 : 0,
         transition: 'max-height 0.35s cubic-bezier(.25,.46,.45,.94), opacity 0.25s',
         marginLeft: '30px',

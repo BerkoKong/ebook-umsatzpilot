@@ -53,13 +53,13 @@ export function IstSituation() {
         <div style={{ display: "grid", gridTemplateColumns: GRID2, gap: "28px" }}>
           <div>{["Zu wenig Aufträge, dann keine Zeit für Vertrieb. Endlosschleife.", "Ohne dich steht der Laden still. Urlaub = Handy-Dauerbetrieb.", "Prozesse existieren nur in deinem Kopf.", "Du machst +80% der Verkäufe selbst."].map((t, i) => (
             <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "14px" }}>
-              <span style={{ color: c.red, fontSize: "11px", marginTop: "6px", flexShrink: 0 }}>{"\u25A0"}</span>
+              <span style={{ color: c.red, fontSize: "11px", marginTop: "6px", flexShrink: 0 }}>{"■"}</span>
               <span style={{ fontSize: "14.5px", color: c.textSecondary, lineHeight: 1.65 }}>{t}</span>
             </div>
           ))}</div>
           <div>{["Vertriebler gehen nach 6 Monaten. Jeder verkauft anders.", "2 bis 3 Bestandskunden tragen deinen Umsatz.", "50% deiner Zeit = manuelle Leadgenerierung.", "Du traust dich nicht, Prozesse automatisieren zu lassen."].map((t, i) => (
             <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "14px" }}>
-              <span style={{ color: c.red, fontSize: "11px", marginTop: "6px", flexShrink: 0 }}>{"\u25A0"}</span>
+              <span style={{ color: c.red, fontSize: "11px", marginTop: "6px", flexShrink: 0 }}>{"■"}</span>
               <span style={{ fontSize: "14.5px", color: c.textSecondary, lineHeight: 1.65 }}>{t}</span>
             </div>
           ))}</div>

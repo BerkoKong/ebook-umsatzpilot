@@ -93,7 +93,7 @@ export function ConversionCTA() {
             <div style={{ padding: "20px 24px 8px" }}>
               {["Setze es Schritt für Schritt um", "Rechne mit 6 bis 12 Monaten bis alles läuft", "Lerne aus deinen Fehlern (teuer, aber lehrreich)"].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "12px" }}>
-                  <span style={{ color: c.textMuted, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"\u2713"}</span>
+                  <span style={{ color: c.textMuted, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"✓"}</span>
                   <span style={{ fontSize: "14px", color: c.textSecondary, lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
@@ -108,7 +108,7 @@ export function ConversionCTA() {
                 "Budget für Fehler: mindestens 50.000 Euro",
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "8px" }}>
-                  <span style={{ color: c.red, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"\u2717"}</span>
+                  <span style={{ color: c.red, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"✗"}</span>
                   <span style={{ fontSize: "13.5px", color: c.textSecondary, lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
@@ -121,7 +121,7 @@ export function ConversionCTA() {
                 "1 verpasster Upsell = X Euro liegen gelassen",
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "8px", alignItems: "flex-start", marginBottom: "6px" }}>
-                  <span style={{ color: c.red, fontSize: "11px", marginTop: "5px", flexShrink: 0 }}>{"\u25A0"}</span>
+                  <span style={{ color: c.red, fontSize: "11px", marginTop: "5px", flexShrink: 0 }}>{"■"}</span>
                   <span style={{ fontSize: "13px", color: c.textSecondary, lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
@@ -153,7 +153,7 @@ export function ConversionCTA() {
                 "Erfolgswahrscheinlichkeit: 85%+ (basierend auf 550+ Kunden)",
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "12px" }}>
-                  <span style={{ color: c.green, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"\u2713"}</span>
+                  <span style={{ color: c.green, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"✓"}</span>
                   <span style={{ fontSize: "14px", color: c.textPrimary, lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
@@ -167,7 +167,7 @@ export function ConversionCTA() {
                 "Messbare Ergebnisse oder Geld zurück",
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "8px" }}>
-                  <span style={{ color: c.green, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"\u2713"}</span>
+                  <span style={{ color: c.green, fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: "3px" }}>{"✓"}</span>
                   <span style={{ fontSize: "13.5px", color: c.textPrimary, lineHeight: 1.5 }}>{t}</span>
                 </div>
               ))}
@@ -240,7 +240,7 @@ export function ConversionCTA() {
             Wenn du die Überholspur willst, dann lass uns reden. Buche dein kostenloses Analysegespräch und lass uns gemeinsam herausfinden, wo dein größter Hebel liegt.
           </p>
 
-          <a href="https://kalender.umsatzpilot.com/umsatzpilot" target="_blank" rel="noopener noreferrer"
+          <a href="https://kalender.umsatzpilot.com/umsatzpilot/30min" target="_blank" rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "14px 32px", borderRadius: "100px", background: c.green, color: "#000", fontSize: "15px", fontWeight: 700, textDecoration: "none", letterSpacing: "-0.01em", transition: "opacity 0.15s" }}
             onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
             onMouseLeave={e => e.currentTarget.style.opacity = "1"}

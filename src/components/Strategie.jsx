@@ -332,7 +332,7 @@ function SelfAssessment({ checked, onToggle }) {
 
         {/* CTA */}
         <a
-          href="https://umsatzpilot.com"
+          href="https://kalender.umsatzpilot.com/umsatzpilot/30min"
           target="_blank"
           rel="noopener noreferrer"
           style={{

@@ -1209,7 +1209,7 @@ export function Datenbasis() {
             <p style={{ fontSize: "14.5px", color: c.textSecondary, lineHeight: 1.7, margin: "0 0 16px" }}>
               In 45 Minuten analysieren wir deine aktuelle Infrastruktur: Tools, Datenflüsse, Prozesse, KPIs. Du erhältst eine klare Empfehlung, Hub-Spoke oder SSOT, inklusive Fahrplan mit Zeitrahmen und erwartbarem ROI. Unabhängig davon, ob du mit uns zusammenarbeitest.
             </p>
-            <a href="https://kalender.umsatzpilot.com/umsatzpilot" target="_blank" rel="noopener noreferrer"
+            <a href="https://kalender.umsatzpilot.com/umsatzpilot/30min" target="_blank" rel="noopener noreferrer"
               style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: c.green, color: "#000", padding: "14px 32px", borderRadius: "100px", fontSize: "15px", fontWeight: 700, textDecoration: "none", letterSpacing: "-0.01em", transition: "opacity 0.15s", cursor: "pointer" }}
               onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
               onMouseLeave={e => e.currentTarget.style.opacity = "1"}
